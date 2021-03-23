@@ -37,6 +37,11 @@
             // numBox
             // 
             this.numBox.Location = new System.Drawing.Point(194, 76);
+            this.numBox.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
             this.numBox.Name = "numBox";
             this.numBox.Size = new System.Drawing.Size(120, 20);
             this.numBox.TabIndex = 0;
