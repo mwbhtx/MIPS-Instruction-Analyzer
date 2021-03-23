@@ -24,10 +24,14 @@ namespace MIPS_Instruction_Analyzer
 
         private void Button1_Click(object sender, EventArgs e)
         {
+
+            // Store the number found in the numBox to new variable
             decimal num = numBox.Value;
 
+            // Convert num variable into string and store into new variable
             string numToString = num.ToString();
 
+            // Show string variable inside textBox box
             textBox.Text = numToString; 
 
         }
