@@ -36,28 +36,28 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.regZero = new System.Windows.Forms.TextBox();
+            this.regAt = new System.Windows.Forms.TextBox();
+            this.regV0 = new System.Windows.Forms.TextBox();
+            this.regV1 = new System.Windows.Forms.TextBox();
+            this.regA0 = new System.Windows.Forms.TextBox();
+            this.regA1 = new System.Windows.Forms.TextBox();
+            this.regA2 = new System.Windows.Forms.TextBox();
+            this.regA3 = new System.Windows.Forms.TextBox();
+            this.initValuesButton = new System.Windows.Forms.Button();
             this.instructBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.regT0 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.regT1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.regT2 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.regT3 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.binRepTextBox = new System.Windows.Forms.TextBox();
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox15 = new System.Windows.Forms.TextBox();
@@ -154,94 +154,94 @@
             this.label9.TabIndex = 8;
             this.label9.Text = "$a3";
             // 
-            // textBox1
+            // regZero
             // 
-            this.textBox1.Location = new System.Drawing.Point(549, 135);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(183, 26);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.Text = "0x00000000";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regZero.Location = new System.Drawing.Point(549, 135);
+            this.regZero.Name = "regZero";
+            this.regZero.ReadOnly = true;
+            this.regZero.Size = new System.Drawing.Size(183, 26);
+            this.regZero.TabIndex = 9;
+            this.regZero.Text = "0x00000000";
+            this.regZero.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox2
+            // regAt
             // 
-            this.textBox2.Location = new System.Drawing.Point(549, 167);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(183, 26);
-            this.textBox2.TabIndex = 10;
-            this.textBox2.Text = "0x00000000";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regAt.Location = new System.Drawing.Point(549, 167);
+            this.regAt.Name = "regAt";
+            this.regAt.ReadOnly = true;
+            this.regAt.Size = new System.Drawing.Size(183, 26);
+            this.regAt.TabIndex = 10;
+            this.regAt.Text = "0x00000000";
+            this.regAt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox3
+            // regV0
             // 
-            this.textBox3.Location = new System.Drawing.Point(549, 199);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(183, 26);
-            this.textBox3.TabIndex = 11;
-            this.textBox3.Text = "0x00000000";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regV0.Location = new System.Drawing.Point(549, 199);
+            this.regV0.Name = "regV0";
+            this.regV0.ReadOnly = true;
+            this.regV0.Size = new System.Drawing.Size(183, 26);
+            this.regV0.TabIndex = 11;
+            this.regV0.Text = "0x00000000";
+            this.regV0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox4
+            // regV1
             // 
-            this.textBox4.Location = new System.Drawing.Point(549, 231);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(183, 26);
-            this.textBox4.TabIndex = 12;
-            this.textBox4.Text = "0x00000000";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regV1.Location = new System.Drawing.Point(549, 231);
+            this.regV1.Name = "regV1";
+            this.regV1.ReadOnly = true;
+            this.regV1.Size = new System.Drawing.Size(183, 26);
+            this.regV1.TabIndex = 12;
+            this.regV1.Text = "0x00000000";
+            this.regV1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox5
+            // regA0
             // 
-            this.textBox5.Location = new System.Drawing.Point(549, 263);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(183, 26);
-            this.textBox5.TabIndex = 13;
-            this.textBox5.Text = "0x00000000";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regA0.Location = new System.Drawing.Point(549, 263);
+            this.regA0.Name = "regA0";
+            this.regA0.ReadOnly = true;
+            this.regA0.Size = new System.Drawing.Size(183, 26);
+            this.regA0.TabIndex = 13;
+            this.regA0.Text = "0x00000000";
+            this.regA0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox6
+            // regA1
             // 
-            this.textBox6.Location = new System.Drawing.Point(549, 295);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(183, 26);
-            this.textBox6.TabIndex = 14;
-            this.textBox6.Text = "0x00000000";
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regA1.Location = new System.Drawing.Point(549, 295);
+            this.regA1.Name = "regA1";
+            this.regA1.ReadOnly = true;
+            this.regA1.Size = new System.Drawing.Size(183, 26);
+            this.regA1.TabIndex = 14;
+            this.regA1.Text = "0x00000000";
+            this.regA1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox7
+            // regA2
             // 
-            this.textBox7.Location = new System.Drawing.Point(549, 327);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(183, 26);
-            this.textBox7.TabIndex = 15;
-            this.textBox7.Text = "0x00000000";
-            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regA2.Location = new System.Drawing.Point(549, 327);
+            this.regA2.Name = "regA2";
+            this.regA2.ReadOnly = true;
+            this.regA2.Size = new System.Drawing.Size(183, 26);
+            this.regA2.TabIndex = 15;
+            this.regA2.Text = "0x00000000";
+            this.regA2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // textBox8
+            // regA3
             // 
-            this.textBox8.Location = new System.Drawing.Point(549, 359);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(183, 26);
-            this.textBox8.TabIndex = 16;
-            this.textBox8.Text = "0x00000000";
-            this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regA3.Location = new System.Drawing.Point(549, 359);
+            this.regA3.Name = "regA3";
+            this.regA3.ReadOnly = true;
+            this.regA3.Size = new System.Drawing.Size(183, 26);
+            this.regA3.TabIndex = 16;
+            this.regA3.Text = "0x00000000";
+            this.regA3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // button1
+            // initValuesButton
             // 
-            this.button1.Location = new System.Drawing.Point(549, 84);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(183, 45);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Initialize Values";
-            this.button1.UseVisualStyleBackColor = true;
+            this.initValuesButton.Location = new System.Drawing.Point(549, 84);
+            this.initValuesButton.Name = "initValuesButton";
+            this.initValuesButton.Size = new System.Drawing.Size(183, 45);
+            this.initValuesButton.TabIndex = 18;
+            this.initValuesButton.Text = "Initialize Values";
+            this.initValuesButton.UseVisualStyleBackColor = true;
             // 
             // instructBox
             // 
@@ -270,15 +270,15 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox9
+            // regT0
             // 
-            this.textBox9.Location = new System.Drawing.Point(549, 391);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(183, 26);
-            this.textBox9.TabIndex = 22;
-            this.textBox9.Text = "0x00000000";
-            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regT0.Location = new System.Drawing.Point(549, 391);
+            this.regT0.Name = "regT0";
+            this.regT0.ReadOnly = true;
+            this.regT0.Size = new System.Drawing.Size(183, 26);
+            this.regT0.TabIndex = 22;
+            this.regT0.Text = "0x00000000";
+            this.regT0.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label8
             // 
@@ -289,15 +289,15 @@
             this.label8.TabIndex = 21;
             this.label8.Text = "$t0";
             // 
-            // textBox10
+            // regT1
             // 
-            this.textBox10.Location = new System.Drawing.Point(549, 423);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
-            this.textBox10.Size = new System.Drawing.Size(183, 26);
-            this.textBox10.TabIndex = 24;
-            this.textBox10.Text = "0x00000000";
-            this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regT1.Location = new System.Drawing.Point(549, 423);
+            this.regT1.Name = "regT1";
+            this.regT1.ReadOnly = true;
+            this.regT1.Size = new System.Drawing.Size(183, 26);
+            this.regT1.TabIndex = 24;
+            this.regT1.Text = "0x00000000";
+            this.regT1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label11
             // 
@@ -308,15 +308,15 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "$t1";
             // 
-            // textBox11
+            // regT2
             // 
-            this.textBox11.Location = new System.Drawing.Point(549, 455);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(183, 26);
-            this.textBox11.TabIndex = 26;
-            this.textBox11.Text = "0x00000000";
-            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regT2.Location = new System.Drawing.Point(549, 455);
+            this.regT2.Name = "regT2";
+            this.regT2.ReadOnly = true;
+            this.regT2.Size = new System.Drawing.Size(183, 26);
+            this.regT2.TabIndex = 26;
+            this.regT2.Text = "0x00000000";
+            this.regT2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label12
             // 
@@ -327,15 +327,15 @@
             this.label12.TabIndex = 25;
             this.label12.Text = "$t2";
             // 
-            // textBox12
+            // regT3
             // 
-            this.textBox12.Location = new System.Drawing.Point(549, 487);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.ReadOnly = true;
-            this.textBox12.Size = new System.Drawing.Size(183, 26);
-            this.textBox12.TabIndex = 28;
-            this.textBox12.Text = "0x00000000";
-            this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.regT3.Location = new System.Drawing.Point(549, 487);
+            this.regT3.Name = "regT3";
+            this.regT3.ReadOnly = true;
+            this.regT3.Size = new System.Drawing.Size(183, 26);
+            this.regT3.TabIndex = 28;
+            this.regT3.Text = "0x00000000";
+            this.regT3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label13
             // 
@@ -355,13 +355,13 @@
             this.label14.TabIndex = 29;
             this.label14.Text = "Binary Representation";
             // 
-            // textBox13
+            // binRepTextBox
             // 
-            this.textBox13.Location = new System.Drawing.Point(47, 484);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(327, 26);
-            this.textBox13.TabIndex = 30;
-            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.binRepTextBox.Location = new System.Drawing.Point(47, 484);
+            this.binRepTextBox.Name = "binRepTextBox";
+            this.binRepTextBox.Size = new System.Drawing.Size(327, 26);
+            this.binRepTextBox.TabIndex = 30;
+            this.binRepTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBox14
             // 
@@ -583,28 +583,28 @@
             this.Controls.Add(this.textBox15);
             this.Controls.Add(this.textBox14);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox13);
+            this.Controls.Add(this.binRepTextBox);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.textBox12);
+            this.Controls.Add(this.regT3);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.textBox11);
+            this.Controls.Add(this.regT2);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.regT1);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.regT0);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.instructBox);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.initValuesButton);
+            this.Controls.Add(this.regA3);
+            this.Controls.Add(this.regA2);
+            this.Controls.Add(this.regA1);
+            this.Controls.Add(this.regA0);
+            this.Controls.Add(this.regV1);
+            this.Controls.Add(this.regV0);
+            this.Controls.Add(this.regAt);
+            this.Controls.Add(this.regZero);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -632,28 +632,28 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox regZero;
+        private System.Windows.Forms.TextBox regAt;
+        private System.Windows.Forms.TextBox regV0;
+        private System.Windows.Forms.TextBox regV1;
+        private System.Windows.Forms.TextBox regA0;
+        private System.Windows.Forms.TextBox regA1;
+        private System.Windows.Forms.TextBox regA2;
+        private System.Windows.Forms.TextBox regA3;
+        private System.Windows.Forms.Button initValuesButton;
         private System.Windows.Forms.TextBox instructBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox regT0;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox regT1;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox regT2;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox regT3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox binRepTextBox;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBox15;
