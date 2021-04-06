@@ -22,18 +22,18 @@ namespace MIPS_Instruction_Analyzer
 
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            var instructString = instructBox.Text;
+            instructString.Trim();
 
-            // Store the number found in the numBox to new variable
-            decimal num = numBox.Value;
+            var instructArray = instructString.Split(' ');
 
-            // Convert num variable into string and store into new variable
-            string numToString = num.ToString();
 
-            // Show string variable inside textBox box
-            textBox.Text = numToString; 
-
+            for (int x = 0; x < instructArray.Length; x++ )
+            {
+                Console.WriteLine(instructArray[x]);
+            }
         }
     }
 }
