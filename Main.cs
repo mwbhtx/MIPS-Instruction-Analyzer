@@ -12,6 +12,7 @@ namespace MIPS_Instruction_Analyzer
 {
     public partial class Main : Form
     {
+
         public Main()
         {
             InitializeComponent();
@@ -29,11 +30,23 @@ namespace MIPS_Instruction_Analyzer
 
             var instructArray = instructString.Split(' ');
 
+            //
+
 
             for (int x = 0; x < instructArray.Length; x++ )
             {
-                Console.WriteLine(instructArray[x]);
+
+                if (instructArray[x] == "add")
+                {
+                    Console.WriteLine(instructArray[x]);
+                }
             }
+
+
+
+
+
+
         }
     }
 }
