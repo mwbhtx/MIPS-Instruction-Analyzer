@@ -19,31 +19,11 @@ namespace MIPS_Instruction_Analyzer
         /* Initialize Register Array : Values Initialize To Zero */
         int[] registerArray = new int[(int)reg_Index.i_reg_NumberOfRegisters];
 
-        // Enum To Track Valid Register Array Indices
-        enum reg_Index : int
-        {
 
-            i_regZero = 0,
-            i_regAt,
-            i_regV0,
-            i_regV1,
-            i_regA0,
-            i_regA1,
-            i_regA2,
-            i_regA3,
-            i_regT0,
-            i_regT1,
-            i_regT2,
-            i_regT3,
-            i_reg_NumberOfRegisters
-
-        }
 
         public Main()
         {
             InitializeComponent();
-
-
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -186,21 +166,37 @@ namespace MIPS_Instruction_Analyzer
             // Split String
 
             /* Debugging */
-            var testString = "add $v0, $v1, $v2";
 
+            /* Acceptable Strings 
+             * var testString1 = "add $v0, $v1";
+             * var testString2 = "add $v0 $v1";
+             * 
+             */
 
-                        // Return Split String
+            // Return Split String
             return newArray;
         }
 
-        /* Instruction Send Button Click Callback Function */
-        private void sendInstructionButton_Click(object sender, EventArgs e)
+        /* 
+         * 
+         * Instruction Send Button Click Callback Function 
+         * 
+         */
+            private void sendInstructionButton_Click(object sender, EventArgs e)
         {
+
+            /* Initialize Opcode Object */
+            Opcode_Data op = new Opcode_Data();
 
             /* Register Structures */
             Register_Data rt = new Register_Data(); 
             Register_Data rd = new Register_Data();
             Register_Data rs = new Register_Data();
+            
+
+            // R-Type: opcode, rs, rt, rd
+            // I-Type: opcode, rs, rt, imm
+            // J-Type: opcode, address
 
 
             // 1. Read Instruction Text Box
@@ -208,9 +204,20 @@ namespace MIPS_Instruction_Analyzer
 
             // 2. Get Array Of Instruction Entries
             var instructionArray = getInstructionsFromString(instructionString);
-            
 
+            // [ add, $s0, $s1, $s2 ] 
 
+            // 3. Validate OpCode ( Read Add From Split String ), Also Make Sure It Matches Supported Types
+
+            // 4. Determine Instruction Type
+
+            // 5.a : In case of R-Type : Get Index Of RS
+            // 5.b : In case of R-Type : Get Index Of RS
+            // 5.c : In case of R-Type : Get Index Of RS
+
+            // 6.a :  Get Index To Global Array
+            // 6.b :  Get Index To Global Array
+            // 6.c :  Get Index To Global Array
 
         }
     }
@@ -230,6 +237,24 @@ namespace MIPS_Instruction_Analyzer
             this.regValueSet = false;
             this.regIndexSet = false;
         }
+    }
+
+
+    // Class To Manage Register Data Passed Around
+    public class Opcode_Data
+    {
+        public string opCodeString;
+        public bool opCodeValid;
+        public bool rType;
+        public bool iType;
+        public bool jType;
+
+        public Opcode_Data()
+        {
+            // Initialize class flags to false 
+            this.opCodeValid = false;
+        }
+
     }
 
 
