@@ -213,10 +213,21 @@ namespace MIPS_Instruction_Analyzer
             var instructionArray = getInstructionsFromString(instructionString); // should return example: [ "add", "$v0", "$v2", "$v3" ]
 
             // 3. Read & Validate OpCode
-            op.opCodeString = instructionArray[0];
+            //op.opCodeString = instructionArray[0];
+            char delim = (char)instructionString.IndexOf(" ");
+            op.opCodeString = instructionString.Substring(0, delim);
 
             // 4. Determine Instruction Type ( Is this an r-type, i-type or j-type? )
-
+            // check for R-Type
+            //test string = "sub $v0, $v1, $v2";
+            foreach (string opCode in op.rTypeArr)
+            {
+               // Console.WriteLine(op.opCodeString);
+                if (opCode == op.opCodeString)
+                {
+                    op.rType = true;
+                }
+            }
 
             // 5. Process Data Based On R-Type , I-Type or J-Type
 
@@ -264,6 +275,7 @@ namespace MIPS_Instruction_Analyzer
     public class Opcode_Data
     {
         public string opCodeString;
+        public string[] rTypeArr = new string[] {};
         public bool opCodeValid;
         public bool rType;
         public bool iType;
@@ -273,6 +285,8 @@ namespace MIPS_Instruction_Analyzer
         {
             // Initialize class flags to false 
             this.opCodeValid = false;
+            // initialze array with R-Type
+            rTypeArr = new string[] { "add", "sub", "div" };
         }
 
     }
