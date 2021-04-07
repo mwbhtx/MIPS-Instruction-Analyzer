@@ -206,11 +206,6 @@ namespace MIPS_Instruction_Analyzer
             Register_Data rs = new Register_Data();
 
 
-            // R-Type: opcode, rs, rt, rd
-            // I-Type: opcode, rs, rt, imm
-            // J-Type: opcode, address
-
-
             // 1. Read Instruction Text Box
             var instructionString = instructBox.Text;
 
@@ -221,9 +216,17 @@ namespace MIPS_Instruction_Analyzer
             op.opCodeString = instructionArray[0];
 
             // 4. Determine Instruction Type ( Is this an r-type, i-type or j-type? )
-            
+
 
             // 5. Process Data Based On R-Type , I-Type or J-Type
+
+            /*
+             * 
+            // R-Type: opcode, rs, rt, rd
+            // I-Type: opcode, rs, rt, imm
+            // J-Type: opcode, address
+            *
+            */
 
             /*************** EXAMPLE R-TYPE *********************/
             // 5.a : In case of R-Type : Get Index Of RS
@@ -234,12 +237,7 @@ namespace MIPS_Instruction_Analyzer
             getRegisterIndexFromString(instructionArray[3], ref rd);
 
 
-            /* We Can Check Valid Flags */
-            if (rs.regIndexSet && rt.regIndexSet && rd.regIndexSet)
-            {
-
-
-            }
+            // 6. Process Operation Code Requirements
 
         }
     }
