@@ -79,7 +79,7 @@ namespace MIPS_Instruction_Analyzer
             int registerIndex = 0;
 
 
-            // Compare Register As String Argument
+            // Compare Register As String Argument, if match found assign the associated index to return value
             switch (registerAsString)
             {
                 case "$zero":
@@ -131,6 +131,8 @@ namespace MIPS_Instruction_Analyzer
                     registerIndex = (int)reg_Index.i_regT3;
                     break;
                 default:
+
+                    // In case there is not a match, return value of 0xFF to indicate no match found. Error input.
                     registerIndex = 0xFF;
                     break;
 
