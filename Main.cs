@@ -204,7 +204,7 @@ namespace MIPS_Instruction_Analyzer
             Register_Data rt = new Register_Data(); 
             Register_Data rd = new Register_Data();
             Register_Data rs = new Register_Data();
-            
+
 
             // R-Type: opcode, rs, rt, rd
             // I-Type: opcode, rs, rt, imm
@@ -215,19 +215,17 @@ namespace MIPS_Instruction_Analyzer
             var instructionString = instructBox.Text;
 
             // 2. Get Array Of Instruction Entries
-            var instructionArray = getInstructionsFromString(instructionString);
-
-            // instructionArray = [ add, $s0, $s1, $s2 ] 
+            var instructionArray = getInstructionsFromString(instructionString); // should return example: [ "add", "$v0", "$v2", "$v3" ]
 
             // 3. Read & Validate OpCode
             op.opCodeString = instructionArray[0];
 
-            // 4. Determine Instruction Type
-
-
-            // Console.WriteLine("%s", op.opCodString);
+            // 4. Determine Instruction Type ( Is this an r-type, i-type or j-type? )
             
 
+            // 5. Process Data Based On R-Type , I-Type or J-Type
+
+            /*************** EXAMPLE R-TYPE *********************/
             // 5.a : In case of R-Type : Get Index Of RS
             getRegisterIndexFromString(instructionArray[1], ref rs);
             // 5.b : In case of R-Type : Get Index Of RT
@@ -235,22 +233,11 @@ namespace MIPS_Instruction_Analyzer
             // 5.c : In case of R-Type : Get Index Of RD
             getRegisterIndexFromString(instructionArray[3], ref rd);
 
-            // Debugging
-            registerArray[(int)reg_Index.i_regAt] = 25; // Store 25 into at array element
-
-            rs.regIndex = 1; // get at value 
-            rs.regIndexSet = true;
-            rd.regIndexSet = true;
-            rt.regIndexSet = true;
 
             /* We Can Check Valid Flags */
             if (rs.regIndexSet && rt.regIndexSet && rd.regIndexSet)
             {
 
-                // Do Stuff
-                getRegisterValue(rs);
-
-                Console.WriteLine(rs.regValue);
 
             }
 
