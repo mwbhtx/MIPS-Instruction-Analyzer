@@ -52,26 +52,22 @@ namespace MIPS_Instruction_Analyzer
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-         
-
-
-        }
-
-
 
         /* Get Current Register Value From Register Array */
         private int getRegisterValue(int registerIndex)
         {
+            // initialize return value
             int registerValue = 0;
 
+            // verify registerIndex argument is within limits of the actual amount of registers our system supports
             if (registerIndex >= 0 && registerIndex < (int) reg_Index.i_reg_NumberOfRegisters) {
 
+                // if within limits, extract current register value from register array using index argument
                 registerValue = registerArray[registerIndex]; 
 
             }
 
+            // return register value
             return registerValue; 
         }
 
