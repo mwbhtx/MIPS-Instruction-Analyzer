@@ -18,3 +18,13 @@ C:\Users\Matthew\Documents\Keil Workspace\MIPS-Instruction-Analyzer\obj\Debug\MI
 C:\Users\Matthew\Documents\Keil Workspace\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.exe.config
 C:\Users\Matthew\Documents\Keil Workspace\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.exe
 C:\Users\Matthew\Documents\Keil Workspace\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.pdb
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.exe.config
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.exe
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.pdb
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.csprojAssemblyReference.cache
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS_Instruction_Analyzer.Main.resources
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS_Instruction_Analyzer.Properties.Resources.resources
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.csproj.GenerateResource.cache
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.csproj.CoreCompileInputs.cache
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.exe
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.pdb

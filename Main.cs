@@ -8,52 +8,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// Enum To Track Valid Register Array Indices
-enum reg_Index: int {
 
-    i_regZero = 0,
-    i_regAt, 
-    i_regV0,
-    i_regV1,
-    i_regA0,
-    i_regA1,
-    i_regA2,
-    i_regA3,
-    i_regT0,
-    i_regT1,
-    i_regT2,
-    i_regT3,
-    i_reg_NumberOfRegisters
-
-}
-
-// Structure To Manage Register Data Passed Around
-struct Register_Data
-{
-    int regValue;
-    int regIndex; 
-    bool regValueSet;
-    bool regIndexSet;
-}
 
 namespace MIPS_Instruction_Analyzer
 {
 
-
-
     public partial class Main : Form
     {
-
-
 
         /* Initialize Register Array : Values Initialize To Zero */
         int[] registerArray = new int[(int)reg_Index.i_reg_NumberOfRegisters];
 
-        /* Register Structures */
-        Register_Data rt;
-        Register_Data rd;
-        Register_Data rs; 
+        // Enum To Track Valid Register Array Indices
+        enum reg_Index : int
+        {
 
+            i_regZero = 0,
+            i_regAt,
+            i_regV0,
+            i_regV1,
+            i_regA0,
+            i_regA1,
+            i_regA2,
+            i_regA3,
+            i_regT0,
+            i_regT1,
+            i_regT2,
+            i_regT3,
+            i_reg_NumberOfRegisters
+
+        }
 
         public Main()
         {
@@ -84,6 +68,8 @@ namespace MIPS_Instruction_Analyzer
             return processSuccessful; 
 
         }
+
+
         /* Set New Value Into Register Array */
         private bool setRegisterValue(int registerIndex, int registerValue)
         {
@@ -101,98 +87,174 @@ namespace MIPS_Instruction_Analyzer
             }
 
 
-
+            // Return Flag
             return processSuccessful; 
         }
 
         /* Get Current Register Value From Register Array */
-        private int getRegisterValue(int registerIndex)
+        private Register_Data getRegisterValue(Register_Data regStruct)
         {
-            // initialize return value
-            int registerValue = 0;
 
-            // verify registerIndex argument is within limits of the actual amount of registers our system supports
-            if (validateRegisterIndex(registerIndex))
-            {
-                // if within limits, extract current register value from register array using index argument
-                registerValue = registerArray[registerIndex];
+            // Get Value From Register Array Using Passed regStruct Index
+            regStruct.regValue = registerArray[regStruct.regIndex];
 
-            }
+            // Set Flag That Data Is Set
+            regStruct.regValueSet = true; 
 
             // return register value
-            return registerValue; 
+            return regStruct; 
         }
 
 
         /* Get Register Array Index From String Represented Register Name */
-        private int getRegisterIndexFromString(string registerAsString)
+        private Register_Data getRegisterIndexFromString(string registerAsString, ref Register_Data regStruct)
         {
-            // Init Register Index Return Value
-            int registerIndex = 0;
-
+            // Set Initial Value That Index Is Valid
+            regStruct.regIndexSet = true; 
 
             // Compare Register As String Argument, if match found assign the associated index to return value
             switch (registerAsString)
             {
                 case "$zero":
 
-                    registerIndex = (int)reg_Index.i_regZero;
+                    regStruct.regIndex = (int)reg_Index.i_regZero;
                     break;
                 case "$at":
 
-                    registerIndex = (int)reg_Index.i_regAt;
+                    regStruct.regIndex = (int)reg_Index.i_regAt;
                     break;
                 case "$v0":
 
-                    registerIndex = (int)reg_Index.i_regV0;
+                    regStruct.regIndex = (int)reg_Index.i_regV0;
                     break;
                 case "$v1":
 
-                    registerIndex = (int)reg_Index.i_regV1;
+                    regStruct.regIndex = (int)reg_Index.i_regV1;
                     break;
                 case "$a0":
 
-                    registerIndex = (int)reg_Index.i_regA0;
+                    regStruct.regIndex = (int)reg_Index.i_regA0;
                     break;
                 case "$a1":
 
-                    registerIndex = (int)reg_Index.i_regA1;
+                    regStruct.regIndex = (int)reg_Index.i_regA1;
                     break;
                 case "$a2":
 
-                    registerIndex = (int)reg_Index.i_regA2;
+                    regStruct.regIndex = (int)reg_Index.i_regA2;
                     break;
                 case "$a3":
 
-                    registerIndex = (int)reg_Index.i_regA3;
+                    regStruct.regIndex = (int)reg_Index.i_regA3;
                     break;
                 case "$t0":
 
-                    registerIndex = (int)reg_Index.i_regT0;
+                    regStruct.regIndex = (int)reg_Index.i_regT0;
                     break;
                 case "$t1":
 
-                    registerIndex = (int)reg_Index.i_regT1;
+                    regStruct.regIndex = (int)reg_Index.i_regT1;
                     break;
                 case "$t2":
 
-                    registerIndex = (int)reg_Index.i_regT2;
+                    regStruct.regIndex = (int)reg_Index.i_regT2;
                     break;
                 case "$t3":
 
-                    registerIndex = (int)reg_Index.i_regT3;
+                    regStruct.regIndex = (int)reg_Index.i_regT3;
                     break;
                 default:
 
-                    // In case there is not a match, return value of 0xFF to indicate no match found. Error input.
-                    registerIndex = 0xFF;
+                    // If No Match, Indicate Register Index Not Valid
+                    regStruct.regIndexSet = false;
                     break;
 
             }
 
             // On Return, Check If Values Is 0xFF. A returned value of 0xFF represents no string match. 
-            return registerIndex;
+            return regStruct;
+
+        }
+
+        
+        /* Split String Into Instruction Array */
+        public new string[] getInstructionsFromString(string instructionString)
+        {
+            // Initialize Returned Array
+            var newArray = new string[4];
+
+            // Split String
+
+            /* Debugging */
+            var testString = "add $v0, $v1, $v2";
+
+
+
+
+            Console.WriteLine(splitString);
+
+            // Return Split String
+            return newArray;
+        }
+
+        /* Instruction Send Button Click Callback Function */
+        private void sendInstructionButton_Click(object sender, EventArgs e)
+        {
+
+            /* Register Structures */
+            Register_Data rt = new Register_Data(); 
+            Register_Data rd = new Register_Data();
+            Register_Data rs = new Register_Data();
+
+
+            // 1. Read Instruction Text Box
+            var instructionString = instructBox.Text;
+
+            // 2. Get Array Of Instruction Entries
+            var instructionArray = getInstructionsFromString(instructionString);
+            
+
+
 
         }
     }
+
+
+    // Class To Manage Register Data Passed Around
+    public class Register_Data
+    {
+        public int regValue;
+        public int regIndex;
+        public bool regValueSet;
+        public bool regIndexSet;
+
+        public Register_Data()
+        {
+            // Initialize class flags to false 
+            this.regValueSet = false;
+            this.regIndexSet = false;
+        }
+    }
+
+
+    // Enum To Track Valid Register Array Indices
+    enum reg_Index : int
+    {
+
+        i_regZero = 0,
+        i_regAt,
+        i_regV0,
+        i_regV1,
+        i_regA0,
+        i_regA1,
+        i_regA2,
+        i_regA3,
+        i_regT0,
+        i_regT1,
+        i_regT2,
+        i_regT3,
+        i_reg_NumberOfRegisters
+
+    }
+
 }

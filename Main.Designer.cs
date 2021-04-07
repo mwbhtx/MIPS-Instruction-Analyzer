@@ -281,7 +281,7 @@
             this.sendInstructionButton.TabIndex = 18;
             this.sendInstructionButton.Text = "Send";
             this.sendInstructionButton.UseVisualStyleBackColor = true;
-            this.sendInstructionButton.Click += new System.EventHandler(this.button2_Click);
+            this.sendInstructionButton.Click += new System.EventHandler(this.sendInstructionButton_Click);
             // 
             // regT0
             // 
