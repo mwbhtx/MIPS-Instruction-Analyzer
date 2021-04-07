@@ -30,9 +30,10 @@ enum reg_Index: int {
 // Structure To Manage Register Data Passed Around
 struct Register_Data
 {
-    int registerValue;
-    int registerIndex; 
-    bool dataValid; 
+    int regValue;
+    int regIndex; 
+    bool regValueSet;
+    bool regIndexSet;
 }
 
 namespace MIPS_Instruction_Analyzer
