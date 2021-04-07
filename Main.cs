@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// Enum To Track Valid Register Array Indices
 enum reg_Index: int {
 
     i_regZero = 0,
@@ -24,6 +25,14 @@ enum reg_Index: int {
     i_regT3,
     i_reg_NumberOfRegisters
 
+}
+
+// Structure To Manage Register Data Passed Around
+struct Register_Data
+{
+    int registerValue;
+    int registerIndex; 
+    bool dataValid; 
 }
 
 namespace MIPS_Instruction_Analyzer
@@ -52,6 +61,43 @@ namespace MIPS_Instruction_Analyzer
 
         }
 
+        private bool validateRegisterIndex(int registerIndex)
+        {
+            // Initialize status flag
+            bool processSuccessful = false;
+
+
+            // verify registerIndex argument is within limits of the actual amount of registers our system supports
+            if (registerIndex >= 0 && registerIndex < (int)reg_Index.i_reg_NumberOfRegisters)
+            {
+                // Set flag that index is valid
+                processSuccessful = true;
+
+            }
+
+            return processSuccessful; 
+
+        }
+        /* Set New Value Into Register Array */
+        private bool setRegisterValue(int registerIndex, int registerValue)
+        {
+            bool processSuccessful = false;
+
+
+
+            // verify registerIndex argument is within limits of the actual amount of registers our system supports
+            if (registerIndex >= 0 && registerIndex < (int)reg_Index.i_reg_NumberOfRegisters)
+            {
+
+                // if within limits, extract current register value from register array using index argument
+                registerValue = registerArray[registerIndex];
+
+            }
+
+
+
+            return processSuccessful; 
+        }
 
         /* Get Current Register Value From Register Array */
         private int getRegisterValue(int registerIndex)
@@ -60,10 +106,10 @@ namespace MIPS_Instruction_Analyzer
             int registerValue = 0;
 
             // verify registerIndex argument is within limits of the actual amount of registers our system supports
-            if (registerIndex >= 0 && registerIndex < (int) reg_Index.i_reg_NumberOfRegisters) {
-
+            if (validateRegisterIndex(registerIndex))
+            {
                 // if within limits, extract current register value from register array using index argument
-                registerValue = registerArray[registerIndex]; 
+                registerValue = registerArray[registerIndex];
 
             }
 
