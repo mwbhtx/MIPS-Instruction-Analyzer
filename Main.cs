@@ -189,11 +189,7 @@ namespace MIPS_Instruction_Analyzer
             var testString = "add $v0, $v1, $v2";
 
 
-
-
-            Console.WriteLine(splitString);
-
-            // Return Split String
+                        // Return Split String
             return newArray;
         }
 
