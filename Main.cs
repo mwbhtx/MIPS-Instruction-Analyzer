@@ -49,6 +49,11 @@ namespace MIPS_Instruction_Analyzer
         /* Initialize Register Array : Values Initialize To Zero */
         int[] registerArray = new int[(int)reg_Index.i_reg_NumberOfRegisters];
 
+        /* Register Structures */
+        Register_Data rt;
+        Register_Data rd;
+        Register_Data rs; 
+
 
         public Main()
         {
