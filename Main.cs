@@ -21,6 +21,9 @@ namespace MIPS_Instruction_Analyzer
 
 
 
+
+
+
         public Main()
         {
             InitializeComponent();
@@ -83,6 +86,15 @@ namespace MIPS_Instruction_Analyzer
 
             // return register value
             return regStruct; 
+        }
+
+        /* Get Current Register Value From Register Array */
+        private void setRegisterValue(Register_Data regStruct)
+        {
+
+            // Set Value Into Register Array Using Passed regStruct Index
+            registerArray[regStruct.regIndex] = regStruct.regValue; 
+
         }
 
 
@@ -205,19 +217,42 @@ namespace MIPS_Instruction_Analyzer
             // 2. Get Array Of Instruction Entries
             var instructionArray = getInstructionsFromString(instructionString);
 
-            // [ add, $s0, $s1, $s2 ] 
+            // instructionArray = [ add, $s0, $s1, $s2 ] 
 
-            // 3. Validate OpCode ( Read Add From Split String ), Also Make Sure It Matches Supported Types
+            // 3. Read & Validate OpCode
+            op.opCodeString = instructionArray[0];
 
             // 4. Determine Instruction Type
 
-            // 5.a : In case of R-Type : Get Index Of RS
-            // 5.b : In case of R-Type : Get Index Of RS
-            // 5.c : In case of R-Type : Get Index Of RS
 
-            // 6.a :  Get Index To Global Array
-            // 6.b :  Get Index To Global Array
-            // 6.c :  Get Index To Global Array
+            // Console.WriteLine("%s", op.opCodString);
+            
+
+            // 5.a : In case of R-Type : Get Index Of RS
+            getRegisterIndexFromString(instructionArray[1], ref rs);
+            // 5.b : In case of R-Type : Get Index Of RT
+            getRegisterIndexFromString(instructionArray[2], ref rt);
+            // 5.c : In case of R-Type : Get Index Of RD
+            getRegisterIndexFromString(instructionArray[3], ref rd);
+
+            // Debugging
+            registerArray[(int)reg_Index.i_regAt] = 25; // Store 25 into at array element
+
+            rs.regIndex = 1; // get at value 
+            rs.regIndexSet = true;
+            rd.regIndexSet = true;
+            rt.regIndexSet = true;
+
+            /* We Can Check Valid Flags */
+            if (rs.regIndexSet && rt.regIndexSet && rd.regIndexSet)
+            {
+
+                // Do Stuff
+                getRegisterValue(rs);
+
+                Console.WriteLine(rs.regValue);
+
+            }
 
         }
     }
