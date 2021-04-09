@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -48,7 +49,7 @@ namespace MIPS_Instruction_Analyzer
 
             }
 
-            return processSuccessful; 
+            return processSuccessful;
 
         }
 
@@ -71,7 +72,7 @@ namespace MIPS_Instruction_Analyzer
 
 
             // Return Flag
-            return processSuccessful; 
+            return processSuccessful;
         }
 
         /* Get Current Register Value From Register Array */
@@ -82,10 +83,10 @@ namespace MIPS_Instruction_Analyzer
             regStruct.regValue = registerArray[regStruct.regIndex];
 
             // Set Flag That Data Is Set
-            regStruct.regValueSet = true; 
+            regStruct.regValueSet = true;
 
             // return register value
-            return regStruct; 
+            return regStruct;
         }
 
         /* Get Current Register Value From Register Array */
@@ -93,7 +94,7 @@ namespace MIPS_Instruction_Analyzer
         {
 
             // Set Value Into Register Array Using Passed regStruct Index
-            registerArray[regStruct.regIndex] = regStruct.regValue; 
+            registerArray[regStruct.regIndex] = regStruct.regValue;
 
         }
 
@@ -102,7 +103,7 @@ namespace MIPS_Instruction_Analyzer
         private Register_Data getRegisterIndexFromString(string registerAsString, ref Register_Data regStruct)
         {
             // Set Initial Value That Index Is Valid
-            regStruct.regIndexSet = true; 
+            regStruct.regIndexSet = true;
 
             // Compare Register As String Argument, if match found assign the associated index to return value
             switch (registerAsString)
@@ -168,34 +169,164 @@ namespace MIPS_Instruction_Analyzer
 
         }
 
-        
-        /* Split String Into Instruction Array */
-        public new string[] getInstructionsFromString(string instructionString)
+        public void alertSystemError()
         {
-            // Initialize Returned Array
-            var newArray = new string[4];
-
-            // Split String
-
-            /* Debugging */
-
-            /* Acceptable Strings 
-             * var testString1 = "add $v0, $v1";
-             * var testString2 = "add $v0 $v1";
-             * 
-             */
-
-            // Return Split String
-            return newArray;
+            MessageBox.Show("Error processing data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        /* 
-         * 
-         * Instruction Send Button Click Callback Function 
-         * 
-         */
-            private void sendInstructionButton_Click(object sender, EventArgs e)
+
+        /* Split String Into Instruction Array */
+        public new bool getInstructionsFromString(string instructionString, ref List<string> inputArgArray)
         {
+            bool successflag = true;
+
+            List<char> word = new List<char>();
+
+            // Trim Any Starting & Ending White Space
+            instructionString = instructionString.Trim();
+
+            // Loop Through String Searching For Words, Store Word If White Space is Found
+
+            bool whiteSpaceFound = false;           // Flags To Indicate A Word Found
+
+            foreach (char c in instructionString)
+            {
+                if ((c != ' ') && (c != ','))
+                {
+                    whiteSpaceFound = false;
+                    word.Add(c);
+                }
+                else if (!whiteSpaceFound)
+                {
+                    whiteSpaceFound = true;
+                    inputArgArray.Add(string.Join("", word.ToArray()));
+                    word.Clear();
+                }
+            }
+
+            // Get Last Word That Was Stored 
+            if (word.Count > 0)
+            {
+                inputArgArray.Add(string.Join("", word.ToArray()));
+            }
+
+            if (inputArgArray.Count > 4 || inputArgArray.Count < 3)
+            {
+                // Input Error
+                successflag = false;
+            }
+
+            // Return Split String
+            return successflag;
+        }
+
+        /* Validate OpCode, Determine Type */
+        public void validateOpCodeAndDetermineType(ref Opcode_Data opObj, string opCodeString)
+        {
+            // Assign Op Code String To Object
+            opObj.opCodeString = opCodeString;
+
+            // Test For RType Match
+            foreach (string opCode in opObj.rTypeArr)
+            {
+                // Console.WriteLine(op.opCodeString);
+                if (opCode == opObj.opCodeString)
+                {
+                    opObj.rType = true;
+                    opObj.opCodeValid = true;
+                    return;
+                }
+            }
+
+
+            // Test For IType Match
+            foreach (string opCode in opObj.iTypeArr)
+            {
+                // Console.WriteLine(op.opCodeString);
+                if (opCode == opObj.opCodeString)
+                {
+                    opObj.iType = true;
+                    opObj.opCodeValid = true;
+                    return;
+                }
+            }
+
+
+        }
+
+        /* Assign register values based on op-type */
+        public void assignRegisterIndexesFromInput(List<string> args, ref Register_Data imm, ref Register_Data rd, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
+        {
+            /*
+             * 
+            // R-Type: opcode, rs, rt, rd
+            // I-Type: opcode, rt, imm(rs)
+            // J-Type: opcode, address
+            *
+            */
+
+            if (op.iType)
+            {
+                getRegisterIndexFromString(args[1], ref rs);
+                getRegisterIndexFromString(args[2], ref rt);
+                getRegisterIndexFromString(args[2], ref imm);
+            }
+            else if (op.rType)
+            {
+                getRegisterIndexFromString(args[1], ref rt);
+                getRegisterIndexFromString(args[3], ref rs);
+                getRegisterIndexFromString(args[3], ref rd);
+            }
+
+        }
+
+        public void processITtypeOperation(ref Register_Data imm, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
+        {
+            switch (op.opCodeString)
+            {
+                case "sw":
+                    // Store rt into register pointed to by (rs + imm)
+
+                    break;
+                case "lw":
+                    // Load data pointed to by (rs + imm) into register rt
+
+                    break;
+            }
+        }
+
+        public void processRTtypeOperation(ref Register_Data rd, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
+        {
+            switch (op.opCodeString)
+            {
+                case "add":
+                    // Add (rs + rt) and store into register rd
+
+
+                    break;
+                case "sub":
+                    // Sub (rs - rt) and store into register rd
+
+                    break;
+                case "sll":
+                    // Shift (rt << rs) and store into rd
+
+                    break;
+                case "srl":
+                    // Shift (rt >> rs) and store into rd
+
+                    break;
+            }
+        }
+
+    /* 
+     * Instruction Send Button Click Callback Function 
+     */
+    private void sendInstructionButton_Click(object sender, EventArgs e)
+        {
+
+            /* Initialize Input Arguments Array */
+            List<string> args = new List<string>();
 
             /* Initialize Opcode Object */
             Opcode_Data op = new Opcode_Data();
@@ -204,51 +335,57 @@ namespace MIPS_Instruction_Analyzer
             Register_Data rt = new Register_Data(); 
             Register_Data rd = new Register_Data();
             Register_Data rs = new Register_Data();
-
+            Register_Data imm = new Register_Data();
 
             // 1. Read Instruction Text Box
             var instructionString = instructBox.Text;
 
             // 2. Get Array Of Instruction Entries
-            var instructionArray = getInstructionsFromString(instructionString); // should return example: [ "add", "$v0", "$v2", "$v3" ]
+            bool properCommandCount = getInstructionsFromString(instructionString, ref args); 
 
-            // 3. Read & Validate OpCode
-            //op.opCodeString = instructionArray[0];
-            char delim = (char)instructionString.IndexOf(" ");
-            op.opCodeString = instructionString.Substring(0, delim);
 
-            // 4. Determine Instruction Type ( Is this an r-type, i-type or j-type? )
-            // check for R-Type
-            //test string = "sub $v0, $v1, $v2";
-            foreach (string opCode in op.rTypeArr)
+            // Validate Instructions Returned From Function
+            if (!properCommandCount)
             {
-               // Console.WriteLine(op.opCodeString);
-                if (opCode == op.opCodeString)
-                {
-                    op.rType = true;
-                }
+                // Alerts
+                alertSystemError();
+                return;
             }
 
-            // 5. Process Data Based On R-Type , I-Type or J-Type
 
-            /*
-             * 
-            // R-Type: opcode, rs, rt, rd
-            // I-Type: opcode, rs, rt, imm
-            // J-Type: opcode, address
-            *
-            */
-
-            /*************** EXAMPLE R-TYPE *********************/
-            // 5.a : In case of R-Type : Get Index Of RS
-            getRegisterIndexFromString(instructionArray[1], ref rs);
-            // 5.b : In case of R-Type : Get Index Of RT
-            getRegisterIndexFromString(instructionArray[2], ref rt);
-            // 5.c : In case of R-Type : Get Index Of RD
-            getRegisterIndexFromString(instructionArray[3], ref rd);
+            // 3. Read & Validate OpCode
+            validateOpCodeAndDetermineType(ref op, args[0]);
 
 
-            // 6. Process Operation Code Requirements
+            // 4. Assign Register Indexes To Global Array Based On Opcode Type
+            if (op.opCodeValid)
+            {
+                assignRegisterIndexesFromInput(args, ref imm, ref rd, ref rt, ref rs, ref op);
+
+            } else
+            {
+                // Alerts
+                alertSystemError();
+                return;
+            }
+
+
+            // 5. Process Operation Code Instruction
+            if (op.iType && rs.regIndexSet && rt.regIndexSet && imm.regIndexSet)
+            {
+                processITtypeOperation(ref imm, ref rt, ref rs, ref op);
+            }
+            else if (op.rType && rs.regIndexSet && rt.regIndexSet && rd.regIndexSet)
+            {
+                processRTtypeOperation(ref rd, ref rt, ref rs, ref op); 
+
+            } else
+            {
+                // Alerts
+                alertSystemError();
+                return;
+            }
+
 
         }
     }
@@ -275,7 +412,8 @@ namespace MIPS_Instruction_Analyzer
     public class Opcode_Data
     {
         public string opCodeString;
-        public string[] rTypeArr = new string[] {};
+        public string[] rTypeArr = new string[] { };
+        public string[] iTypeArr = new string[] { };
         public bool opCodeValid;
         public bool rType;
         public bool iType;
@@ -287,6 +425,8 @@ namespace MIPS_Instruction_Analyzer
             this.opCodeValid = false;
             // initialze array with R-Type
             rTypeArr = new string[] { "add", "sub", "div" };
+            // initialze array with I-Type
+            iTypeArr = new string[] { "sw", "lw" };
         }
 
     }
