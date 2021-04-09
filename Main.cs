@@ -386,6 +386,7 @@ namespace MIPS_Instruction_Analyzer
                 return;
             }
 
+            // 6. Update GUI Register Values
 
         }
     }
