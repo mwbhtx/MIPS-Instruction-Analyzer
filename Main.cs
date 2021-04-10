@@ -21,10 +21,6 @@ namespace MIPS_Instruction_Analyzer
         int[] registerArray = new int[(int)reg_Index.i_reg_NumberOfRegisters];
 
 
-
-
-
-
         public Main()
         {
             InitializeComponent();
@@ -66,7 +62,7 @@ namespace MIPS_Instruction_Analyzer
             {
 
                 // if within limits, extract current register value from register array using index argument
-                registerValue = registerArray[registerIndex];
+                registerArray[registerIndex] = registerValue;
 
             }
 
@@ -287,21 +283,23 @@ namespace MIPS_Instruction_Analyzer
 
                     // Perform: [ addi $rt, $rs, imm ]      :: R[$rt] ← R[$rs] + SignExt16b(imm)
 
-                    // Set Register Indexes
+                    // 1. Set Register Indexes
                     getRegisterIndexFromString(args[1], ref rt);
                     getRegisterIndexFromString(args[2], ref rs);
 
-                    // Get Required Values
+                    // 2. Get Required Values
                     getRegisterValue(rs);
                     setImmediateValueFromString(args[3], ref imm);
 
-                    // Perform Any Math
+                    // 3. Perform Any Math
                     int valueResult = rs.regValue + imm.regValue;
 
-                    // Store Result Into Return Register
+                    // 4. Store Result Into Return Register Object
+
+                    // 4. Store Result Into Return Register
                     setRegisterValue(rt.regIndex, valueResult);
 
-                    // Update Any GUI Changes
+                    // 5. Update Any GUI Changes
                     setGuiHexStringFromInt(valueResult, rt.regIndex);
 
                     break;
@@ -313,22 +311,69 @@ namespace MIPS_Instruction_Analyzer
             switch (op.opCodeString)
             {
                 case "add":
-                    // Add (rs + rt) and store into register rd
+                    {
+
+                        // [ add $rd, $rs, $rt] ::  R[$rd] ← R[$rs] + R[$rt]
+
+                        // 1. Set Register Indexes
+                        getRegisterIndexFromString(args[3], ref rt);
+                        getRegisterIndexFromString(args[2], ref rs);
+                        getRegisterIndexFromString(args[1], ref rd);
+
+                        // 2. Get Required Values
+                        getRegisterValue(rs);
+                        getRegisterValue(rt);
+
+                        // 3. Perform Any Math
+                        int valueResult = rs.regValue + rt.regValue;
+
+                        // 4. Store Result Into Return Register
+                        setRegisterValue(rd.regIndex, valueResult);
+
+                        // 5. Update Any GUI Changes
+                        setGuiHexStringFromInt(valueResult, rd.regIndex);
 
 
-                    break;
+                        break;
+                    }
                 case "sub":
-                    // Sub (rs - rt) and store into register rd
+                    {
+                        // [ sub $rd, $rs, $rt ] ::    R[$rd] ← R[$rs] - R[$rt]
 
-                    break;
+
+                        // 1. Set Register Indexes
+                        getRegisterIndexFromString(args[1], ref rd);
+                        getRegisterIndexFromString(args[2], ref rs);
+                        getRegisterIndexFromString(args[3], ref rt);
+
+                        // 2. Get Required Values
+                        getRegisterValue(rs);
+                        getRegisterValue(rt);
+
+                        // 3. Perform Any Math
+                        int valueResult = rs.regValue - rt.regValue;
+
+                        // 4. Store Result Into Return Register
+                        setRegisterValue(rd.regIndex, valueResult);
+
+                        // 5. Update Any GUI Changes
+                        setGuiHexStringFromInt(valueResult, rd.regIndex);
+
+                        break;
+
+                    }
                 case "sll":
-                    // Shift (rt << rs) and store into rd
+                    {
+                        // [ sll $rd, $rt, shamt ]	R[$rd] ← R[$rt] << shamt
 
-                    break;
+                        break;
+                    }
                 case "srl":
-                    // Shift (rt >> rs) and store into rd
+                    {
+                        // [ srl $rd, $rt, shamt ] ::	R[$rd] ← R[$rt] >> shamt
 
-                    break;
+                        break;
+                    }
             }
         }
 
@@ -352,6 +397,7 @@ namespace MIPS_Instruction_Analyzer
             int i = BitConverter.ToInt32(intVals, 0); 
             Console.WriteLine("int convert = {0}", i);
         }
+
         /* 
             /* 
              * Instruction Send Button Click Callback Function 
@@ -469,6 +515,32 @@ namespace MIPS_Instruction_Analyzer
                     // If No Match, Set Alert Box
 
                     break;
+
+            }
+        }
+
+        private void initValuesButton_Click(object sender, EventArgs e)
+        {
+            // Init default reg object for function arguments
+            Register_Data tempObj = new Register_Data();
+
+            // Set Value To Zero
+            tempObj.regValue = 0;
+            tempObj.regValueSet = true;
+
+
+            // For Each Register Index Supported, Set Value To Zero
+            for (int x = 0; x < (int)reg_Index.i_reg_NumberOfRegisters; x++)
+            {
+                // Set New Index For Register 
+                tempObj.regIndex = x;
+                tempObj.regIndexSet = true;
+
+                // Set Global Array Values To Zero Using Temp Reg Object
+                setRegisterValue(tempObj);
+
+                // Set GUI Register Values to Zero using Temp Reg Object
+                setGuiHexStringFromInt(tempObj.regValue, tempObj.regIndex);
 
             }
         }

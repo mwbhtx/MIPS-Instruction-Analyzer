@@ -262,6 +262,7 @@
             this.initValuesButton.TabIndex = 18;
             this.initValuesButton.Text = "Initialize Values";
             this.initValuesButton.UseVisualStyleBackColor = true;
+            this.initValuesButton.Click += new System.EventHandler(this.initValuesButton_Click);
             // 
             // instructBox
             // 
