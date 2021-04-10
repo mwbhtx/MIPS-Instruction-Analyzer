@@ -294,8 +294,6 @@ namespace MIPS_Instruction_Analyzer
                     // 3. Perform Any Math
                     int valueResult = rs.regValue + imm.regValue;
 
-                    // 4. Store Result Into Return Register Object
-
                     // 4. Store Result Into Return Register
                     setRegisterValue(rt.regIndex, valueResult);
 
