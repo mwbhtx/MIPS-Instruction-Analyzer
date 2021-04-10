@@ -76,7 +76,7 @@ namespace MIPS_Instruction_Analyzer
         }
 
         /* Get Current Register Value From Register Array */
-        private Register_Data getRegisterValue(Register_Data regStruct)
+        private void getRegisterValue(Register_Data regStruct)
         {
 
             // Get Value From Register Array Using Passed regStruct Index
@@ -85,8 +85,6 @@ namespace MIPS_Instruction_Analyzer
             // Set Flag That Data Is Set
             regStruct.regValueSet = true;
 
-            // return register value
-            return regStruct;
         }
 
         /* Get Current Register Value From Register Array */
@@ -169,14 +167,14 @@ namespace MIPS_Instruction_Analyzer
 
         }
 
-        public void alertSystemError()
+        public void alertSystemError(string errorString)
         {
-            MessageBox.Show("Error processing data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(errorString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
         /* Split String Into Instruction Array */
-        public new bool getInstructionsFromString(string instructionString, ref List<string> inputArgArray)
+        public bool getInstructionsFromString(string instructionString, ref List<string> inputArgArray)
         {
             bool successflag = true;
 
@@ -254,48 +252,63 @@ namespace MIPS_Instruction_Analyzer
 
         }
 
-        /* Assign register values based on op-type */
-        public void assignRegisterIndexesFromInput(List<string> args, ref Register_Data imm, ref Register_Data rd, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
+        /* Assing Immediate Constant Value From String */
+        public void setImmediateValueFromString(string valueString, ref Register_Data imm)
         {
-            /*
-             * 
-            // R-Type: opcode, rs, rt, rd
-            // I-Type: opcode, rt, imm(rs)
-            // J-Type: opcode, address
-            *
-            */
+            // Convert String To Integer
+            int intValue = int.Parse(valueString);
 
-            if (op.iType)
-            {
-                getRegisterIndexFromString(args[1], ref rs);
-                getRegisterIndexFromString(args[2], ref rt);
-                getRegisterIndexFromString(args[2], ref imm);
-            }
-            else if (op.rType)
-            {
-                getRegisterIndexFromString(args[1], ref rt);
-                getRegisterIndexFromString(args[3], ref rs);
-                getRegisterIndexFromString(args[3], ref rd);
-            }
+            // Set Value Into Immediate Object
+            imm.regValue = intValue;
 
+            // Set Flag That Value Is Ready
+            imm.regValueSet = true; 
+            
         }
 
-        public void processITtypeOperation(ref Register_Data imm, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
+        // Execute I-Type Operations (Consider Using Function Callbacks If Have The Time) 
+        public void processITtypeOperation(ref List<string> args, ref Register_Data imm, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
         {
             switch (op.opCodeString)
             {
                 case "sw":
-                    // Store rt into register pointed to by (rs + imm)
+
+                    // Perform: [ sw $rt, imm($rs) ]        :: Mem4B(R[$rs] + SignExt16b(imm)) ← R[$rt]
+
 
                     break;
                 case "lw":
-                    // Load data pointed to by (rs + imm) into register rt
+
+                    // Perform: [ lw $rt, imm($rs) ]        :: R[$rt] ← Mem4B(R[$rs] + SignExt16b(imm))
+
+                    break;
+
+                case "addi":
+
+                    // Perform: [ addi $rt, $rs, imm ]      :: R[$rt] ← R[$rs] + SignExt16b(imm)
+
+                    // Set Register Indexes
+                    getRegisterIndexFromString(args[1], ref rt);
+                    getRegisterIndexFromString(args[2], ref rs);
+
+                    // Get Required Values
+                    getRegisterValue(rs);
+                    setImmediateValueFromString(args[3], ref imm);
+
+                    // Perform Any Math
+                    int valueResult = rs.regValue + imm.regValue;
+
+                    // Store Result Into Return Register
+                    setRegisterValue(rt.regIndex, valueResult);
+
+                    // Update Any GUI Changes
+                    setGuiHexStringFromInt(valueResult, rt.regIndex);
 
                     break;
             }
         }
 
-        public void processRTtypeOperation(ref Register_Data rd, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
+        public void processRTtypeOperation(ref List<string> args, ref Register_Data rd, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
         {
             switch (op.opCodeString)
             {
@@ -319,12 +332,32 @@ namespace MIPS_Instruction_Analyzer
             }
         }
 
-    /* 
-     * Instruction Send Button Click Callback Function 
-     */
-    private void sendInstructionButton_Click(object sender, EventArgs e)
+        private void convertHexStringToFloat(string hexString) // Expects String Argument In Form ("0x00") // no hex length requirement
         {
+            hexString = hexString.Remove(0, 2);
 
+            uint num = uint.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            byte[] floatVals = BitConverter.GetBytes(num);
+            float f = BitConverter.ToSingle(floatVals, 0);
+            Console.WriteLine("float convert = {0}", f);
+        }
+        private void convertHexStringToInt(string hexString)    // Expects String Argument In Form ("0x00") // no hex length requirement
+        {
+            hexString = hexString.Remove(0, 2); 
+
+            uint num = uint.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+            byte[] intVals = BitConverter.GetBytes(num);
+            int i = BitConverter.ToInt32(intVals, 0); 
+            Console.WriteLine("int convert = {0}", i);
+        }
+        /* 
+            /* 
+             * Instruction Send Button Click Callback Function 
+             */
+        private void sendInstructionButton_Click(object sender, EventArgs e)
+        { 
             /* Initialize Input Arguments Array */
             List<string> args = new List<string>();
 
@@ -348,7 +381,7 @@ namespace MIPS_Instruction_Analyzer
             if (!properCommandCount)
             {
                 // Alerts
-                alertSystemError();
+                alertSystemError("Invalid number of commands");
                 return;
             }
 
@@ -357,37 +390,87 @@ namespace MIPS_Instruction_Analyzer
             validateOpCodeAndDetermineType(ref op, args[0]);
 
 
-            // 4. Assign Register Indexes To Global Array Based On Opcode Type
-            if (op.opCodeValid)
-            {
-                assignRegisterIndexesFromInput(args, ref imm, ref rd, ref rt, ref rs, ref op);
-
-            } else
+            // 4. Return early if op-code is invalid
+            if (!op.opCodeValid)
             {
                 // Alerts
-                alertSystemError();
+                alertSystemError("Invalid op-code found");
                 return;
             }
 
-
             // 5. Process Operation Code Instruction
-            if (op.iType && rs.regIndexSet && rt.regIndexSet && imm.regIndexSet)
+            if (op.iType)
             {
-                processITtypeOperation(ref imm, ref rt, ref rs, ref op);
+                processITtypeOperation(ref args, ref imm, ref rt, ref rs, ref op);
             }
-            else if (op.rType && rs.regIndexSet && rt.regIndexSet && rd.regIndexSet)
+            else if (op.rType)
             {
-                processRTtypeOperation(ref rd, ref rt, ref rs, ref op); 
+                processRTtypeOperation(ref args, ref rd, ref rt, ref rs, ref op); 
 
             } else
             {
                 // Alerts
-                alertSystemError();
+                alertSystemError("Op-code type not set correctly");
                 return;
             }
 
             // 6. Update GUI Register Values
 
+        }
+
+
+
+        // set GUI representation of new data
+        public void setGuiHexStringFromInt(int value, int regIndex) {
+
+            // Convert integer 182 as a hex in a string variable
+            string hexString = String.Format("0x{0}", value.ToString("X8"));
+
+            // Store Into Correct GUI Register Text Box
+            switch(regIndex)
+            {
+                case (int)reg_Index.i_regZero:
+                    regZero.Text = hexString; 
+                    break;
+                case (int)reg_Index.i_regAt:
+                    regAt.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regV0:
+                    regAt.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regV1:
+                    regV1.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regA0:
+                    regA0.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regA1:
+                    regA1.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regA2:
+                    regA2.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regA3:
+                    regA3.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regT0:
+                    regT0.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regT1:
+                    regT1.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regT2:
+                    regT2.Text = hexString;
+                    break;
+                case (int)reg_Index.i_regT3:
+                    regT3.Text = hexString;
+                    break;
+                default:
+                    // If No Match, Set Alert Box
+
+                    break;
+
+            }
         }
     }
 
@@ -427,8 +510,9 @@ namespace MIPS_Instruction_Analyzer
             // initialze array with R-Type
             rTypeArr = new string[] { "add", "sub", "div" };
             // initialze array with I-Type
-            iTypeArr = new string[] { "sw", "lw" };
+            iTypeArr = new string[] { "sw", "lw", "addi" };
         }
+
 
     }
 
@@ -452,5 +536,7 @@ namespace MIPS_Instruction_Analyzer
         i_reg_NumberOfRegisters
 
     }
+
+
 
 }
