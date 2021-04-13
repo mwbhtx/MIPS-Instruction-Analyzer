@@ -364,11 +364,46 @@ namespace MIPS_Instruction_Analyzer
                     {
                         // [ sll $rd, $rt, shamt ]	R[$rd] ← R[$rt] << shamt
 
+                        // 1. Set Register Indexes
+                        getRegisterIndexFromString(args[1], ref rd);
+                        getRegisterIndexFromString(args[2], ref rt);
+
+                        // 2. Get Required Values
+                        getRegisterValue(rt);
+                        int shamtVal = int.Parse(args[3]);
+
+                        // 3. Perform Any Math
+                        int valueResult = rt.regValue << shamtVal;
+
+                        // 4. Store Result Into Return Register
+                        setRegisterValue(rd.regIndex, valueResult);
+
+                        // 5. Update Any GUI Changes
+                        setGuiHexStringFromInt(valueResult, rd.regIndex);
+
                         break;
                     }
                 case "srl":
                     {
                         // [ srl $rd, $rt, shamt ] ::	R[$rd] ← R[$rt] >> shamt
+                        // [ sll $rd, $rt, shamt ]	R[$rd] ← R[$rt] << shamt
+
+                        // 1. Set Register Indexes
+                        getRegisterIndexFromString(args[1], ref rd);
+                        getRegisterIndexFromString(args[2], ref rt);
+
+                        // 2. Get Required Values
+                        getRegisterValue(rt);
+                        int shamtVal = int.Parse(args[3]);
+
+                        // 3. Perform Any Math
+                        int valueResult = rt.regValue >> shamtVal;
+
+                        // 4. Store Result Into Return Register
+                        setRegisterValue(rd.regIndex, valueResult);
+
+                        // 5. Update Any GUI Changes
+                        setGuiHexStringFromInt(valueResult, rd.regIndex);
 
                         break;
                     }
@@ -578,7 +613,7 @@ namespace MIPS_Instruction_Analyzer
             // Initialize class flags to false 
             this.opCodeValid = false;
             // initialze array with R-Type
-            rTypeArr = new string[] { "add", "sub", "div" };
+            rTypeArr = new string[] { "add", "sub", "div", "sll", "srl" };
             // initialze array with I-Type
             iTypeArr = new string[] { "sw", "lw", "addi" };
         }
