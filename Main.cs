@@ -157,6 +157,9 @@ namespace MIPS_Instruction_Analyzer
                     break;
 
             }
+            // Compute binary representation of register number
+            regStruct.Register_Bin();
+            Console.WriteLine (regStruct.regBin);
 
             // On Return, Check If Values Is 0xFF. A returned value of 0xFF represents no string match. 
             return regStruct;
@@ -431,7 +434,7 @@ namespace MIPS_Instruction_Analyzer
 
                         break;
                     }
-                                    case "mult": //using rs as destination 
+                        case "mult": //using rs as destination 
                     {
                         // {HI, LO} ← R[$rs] * R[$rt]      mult $rs, $rt
 
@@ -634,12 +637,61 @@ namespace MIPS_Instruction_Analyzer
         public int regIndex;
         public bool regValueSet;
         public bool regIndexSet;
+        public string regBin;
 
         public Register_Data()
         {
             // Initialize class flags to false 
             this.regValueSet = false;
             this.regIndexSet = false;
+        }
+
+        public void Register_Bin()
+        {
+            // convert index number into string holding 5-bit binary representation
+            switch(this.regIndex)
+            {
+                case 1:
+                    regBin = "00001";
+                    break;
+                case 2:
+                    regBin = "00010";
+                    break; 
+                case 3:
+                    regBin = "00011";
+                    break; 
+                case 4:
+                    regBin = "00100";
+                    break; 
+                case 5:
+                    regBin = "00101";
+                    break; 
+                case 6:
+                    regBin = "00110";
+                    break; 
+                case 7:
+                    regBin = "00111";
+                    break; 
+                case 8:
+                    regBin = "01000";
+                    break; 
+                case 9:
+                    regBin = "01001";
+                    break; 
+                case 10:
+                    regBin = "01010";
+                    break; 
+                case 11:
+                    regBin = "01011";
+                    break; 
+                case 12:
+                    regBin = "01100";
+                    break; 
+                default:
+                    regBin = "00000";
+                    break;
+            }
+           // return this.regBin;
         }
     }
 
