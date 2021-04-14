@@ -407,6 +407,53 @@ namespace MIPS_Instruction_Analyzer
 
                         break;
                     }
+                case "div": //using rs as destination for LO
+                    {
+                        // LO ← R[$rs] / R[$rt]  div $rs, $rt     div $rs, $rt
+                        // HI ← R[$rs] % R[$rt]  div $rs, $rt     div $rs, $rt
+
+                        // 1. Set Register Indexes
+                        getRegisterIndexFromString(args[1], ref rs);
+                        getRegisterIndexFromString(args[2], ref rt);
+
+                        // 2. Get Required Values
+                        getRegisterValue(rs);
+                        getRegisterValue(rt);
+
+                        // 3. Perform Any Math
+                        int valueResult = rs.regValue / rt.regValue;
+
+                        // 4. Store Result Into Return Register
+                        setRegisterValue(rs.regIndex, valueResult);
+
+                        // 5. Update Any GUI Changes
+                        setGuiHexStringFromInt(valueResult, rs.regIndex);
+
+                        break;
+                    }
+                                    case "mult": //using rs as destination 
+                    {
+                        // {HI, LO} ← R[$rs] * R[$rt]      mult $rs, $rt
+
+                        // 1. Set Register Indexes
+                        getRegisterIndexFromString(args[1], ref rs);
+                        getRegisterIndexFromString(args[2], ref rt);
+
+                        // 2. Get Required Values
+                        getRegisterValue(rs);
+                        getRegisterValue(rt);
+
+                        // 3. Perform Any Math
+                        int valueResult = rs.regValue * rt.regValue;
+
+                        // 4. Store Result Into Return Register
+                        setRegisterValue(rs.regIndex, valueResult);
+
+                        // 5. Update Any GUI Changes
+                        setGuiHexStringFromInt(valueResult, rs.regIndex);
+
+                        break;
+                    }
             }
         }
 
@@ -515,7 +562,7 @@ namespace MIPS_Instruction_Analyzer
                     regAt.Text = hexString;
                     break;
                 case (int)reg_Index.i_regV0:
-                    regAt.Text = hexString;
+                    regV0.Text = hexString;
                     break;
                 case (int)reg_Index.i_regV1:
                     regV1.Text = hexString;
@@ -613,12 +660,10 @@ namespace MIPS_Instruction_Analyzer
             // Initialize class flags to false 
             this.opCodeValid = false;
             // initialze array with R-Type
-            rTypeArr = new string[] { "add", "sub", "div", "sll", "srl" };
+            rTypeArr = new string[] { "add", "sub", "div", "mult", "sll", "srl" };
             // initialze array with I-Type
             iTypeArr = new string[] { "sw", "lw", "addi" };
         }
-
-
     }
 
 
