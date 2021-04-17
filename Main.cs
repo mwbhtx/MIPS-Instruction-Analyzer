@@ -160,9 +160,9 @@ namespace MIPS_Instruction_Analyzer
                     break;
 
             }
+
             // Compute binary representation of register number
             regStruct.Register_Bin();
-            Debug.WriteLine(regStruct.regBin);
 
             // On Return, Check If Values Is 0xFF. A returned value of 0xFF represents no string match. 
             return regStruct;
@@ -234,9 +234,9 @@ namespace MIPS_Instruction_Analyzer
                 {
                     opObj.rType = true;
                     opObj.opCodeValid = true;
+
                     // Compute binary representation of opcode
                     opObj.op_Bin();
-                    Debug.WriteLine(opObj.opBin);
                     return;
                 }
             }
@@ -250,8 +250,10 @@ namespace MIPS_Instruction_Analyzer
                 {
                     opObj.iType = true;
                     opObj.opCodeValid = true;
+
+                    // Compute binary representation of opcode
                     opObj.op_Bin();
-                    Debug.WriteLine(opObj.opBin);
+
                     return;
                 }
             }
@@ -269,8 +271,16 @@ namespace MIPS_Instruction_Analyzer
             imm.regValue = intValue;
 
             // Set Flag That Value Is Ready
-            imm.regValueSet = true; 
-            
+            imm.regValueSet = true;
+
+            // set binary string representation:
+            string tempImm = imm.regBin; // init empty string
+            tempImm = Convert.ToString(intValue, binBase);        // convert integer to string using base 2
+
+            // pad up shamt binary number
+            string padBits = padUpBits(tempImm.Length, 16);        // Add Additional Bits After 
+            imm.regBin = padBits + tempImm;
+
         }
 
         // Execute I-Type Operations (Consider Using Function Callbacks If Have The Time) 
@@ -310,9 +320,72 @@ namespace MIPS_Instruction_Analyzer
 
                     // 5. Update Any GUI Changes
                     setGuiHexStringFromInt(valueResult, rt.regIndex);
+                    setGuiBinaryRepTextBox(rt, rs, op, null, imm);
 
                     break;
             }
+        }
+
+        // Return Shift Amount As Integer, While Also Setting Shift Amount Binary String
+        public int getShamtIntAndSetBinString(ref Opcode_Data opcodeObj, string shamtString)
+        {
+
+            // Get shamt from input string as integer
+            int shamtVal = int.Parse(shamtString);
+
+            // set binary string representation
+            string tempShamt = opcodeObj.shamtBin;
+            tempShamt = Convert.ToString(shamtVal, binBase);        // int binBase = 2
+
+            // pad up shamt binary number
+            string padBits = padUpBits(tempShamt.Length, 5);
+            opcodeObj.shamtBin = padBits + tempShamt;
+
+            return shamtVal;
+
+        }
+
+        // Set GUI Binary Representation Text Box
+        public void setGuiBinaryRepTextBox(Register_Data rt, Register_Data rs, Opcode_Data op, Register_Data rd = null, Register_Data imm = null)
+        {
+            // init string
+            var outputString = "empty";
+
+            if ( rd != null && rd.regBin == null)
+            {
+                rd.regBin = "00000";
+            }
+            if (imm != null && imm.regBin == null)
+            {
+                imm.regBin = "00000";
+            }
+
+            // Check For Null Values
+            if (rs.regBin == null)
+            {
+                rs.regBin = "00000";
+            }
+
+            if (op.shamtBin == null)
+            {
+                op.shamtBin = "00000";
+            }
+
+            // Set GUI String Based On Op-Type
+            if (op.rType)
+            {
+                // [ op + rs + rt + rd + shamt + func ]
+                outputString = op.opBin + rs.regBin + rt.regBin + rd.regBin + op.shamtBin + op.functBin; 
+            }
+            else if (op.iType)
+            {
+                // [ op + rs + rt + imm ]
+                outputString = op.opBin + rs.regBin + rt.regBin + imm.regBin; 
+            }
+
+
+            // Set GUI String
+            binRepTextBox.Text = outputString; 
         }
 
         public void processRTtypeOperation(ref List<string> args, ref Register_Data rd, ref Register_Data rt, ref Register_Data rs, ref Opcode_Data op)
@@ -341,6 +414,7 @@ namespace MIPS_Instruction_Analyzer
 
                         // 5. Update Any GUI Changes
                         setGuiHexStringFromInt(valueResult, rd.regIndex);
+                        setGuiBinaryRepTextBox(rt, rs, op, rd);
 
 
                         break;
@@ -367,6 +441,7 @@ namespace MIPS_Instruction_Analyzer
 
                         // 5. Update Any GUI Changes
                         setGuiHexStringFromInt(valueResult, rd.regIndex);
+                        setGuiBinaryRepTextBox(rt, rs, op, rd);
 
                         break;
 
@@ -381,17 +456,7 @@ namespace MIPS_Instruction_Analyzer
 
                         // 2. Get Required Values
                         getRegisterValue(rt);
-                        int shamtVal = int.Parse(args[3]);
-
-                        // set binary presentation
-                        //int binBase = 2;
-                        string tempShamt = op.shamtBin;
-                        tempShamt = Convert.ToString(shamtVal, binBase);
-                        
-                        // pad up shamt binary number
-                        string padBits = padUpBits(tempShamt.Length, 5);
-                        op.shamtBin = padBits + tempShamt;
-                        Debug.WriteLine(op.shamtBin);
+                        var shamtVal = getShamtIntAndSetBinString(ref op, args[3]);
 
                         // 3. Perform Any Math
                         int valueResult = rt.regValue << shamtVal;
@@ -401,6 +466,7 @@ namespace MIPS_Instruction_Analyzer
 
                         // 5. Update Any GUI Changes
                         setGuiHexStringFromInt(valueResult, rd.regIndex);
+                        setGuiBinaryRepTextBox(rt, rs, op, rd);
 
                         break;
                     }
@@ -415,18 +481,8 @@ namespace MIPS_Instruction_Analyzer
 
                         // 2. Get Required Values
                         getRegisterValue(rt);
-                        int shamtVal = int.Parse(args[3]);
-
-                        // set binary presentation
-                        //int binBase = 2;
-                        string tempShamt = op.shamtBin;
-                        tempShamt = Convert.ToString(shamtVal, binBase);
-                        
-                        // pad up shamt binary number
-                        string padBits = padUpBits(tempShamt.Length, 5);
-                        op.shamtBin = padBits + tempShamt;
-                        Debug.WriteLine(op.shamtBin);
-
+                        int shamtVal = getShamtIntAndSetBinString(ref op, args[3]);
+         
                         // 3. Perform Any Math
                         int valueResult = rt.regValue >> shamtVal;
 
@@ -435,6 +491,7 @@ namespace MIPS_Instruction_Analyzer
 
                         // 5. Update Any GUI Changes
                         setGuiHexStringFromInt(valueResult, rd.regIndex);
+                        setGuiBinaryRepTextBox(rt, rs, op, rd);
 
                         break;
                     }
@@ -452,13 +509,22 @@ namespace MIPS_Instruction_Analyzer
                         getRegisterValue(rt);
 
                         // 3. Perform Any Math
-                        int valueResult = rs.regValue / rt.regValue;
+                        try
+                        {
+                            int valueResult = rs.regValue / rt.regValue;
 
-                        // 4. Store Result Into Return Register
-                        setRegisterValue(rs.regIndex, valueResult);
+                            // 4. Store Result Into Return Register
+                            setRegisterValue(rs.regIndex, valueResult);
 
-                        // 5. Update Any GUI Changes
-                        setGuiHexStringFromInt(valueResult, rs.regIndex);
+                            // 5. Update Any GUI Changes
+                            setGuiHexStringFromInt(valueResult, rs.regIndex);
+                            setGuiBinaryRepTextBox(rt, rs, op, rd);
+
+                        }
+                        catch
+                        {
+                            alertSystemError("Divide By Zero Error.");
+                        }
 
                         break;
                     }
@@ -482,6 +548,7 @@ namespace MIPS_Instruction_Analyzer
 
                         // 5. Update Any GUI Changes
                         setGuiHexStringFromInt(valueResult, rs.regIndex);
+                        setGuiBinaryRepTextBox(rt, rs, op, rd);
 
                         break;
                     }
@@ -767,30 +834,24 @@ namespace MIPS_Instruction_Analyzer
                     case "add":
                         this.functBin = "100000";
                         this.shamtBin = "00000";
-                        Debug.WriteLine(this.functBin);
                         break;
                     case "sub":
                         this.functBin = "100010";
                         this.shamtBin = "00000";
-                        Debug.WriteLine(this.functBin);
                         break;
                     case "div":
                         this.functBin = "011010";
                         this.shamtBin = "00000";
-                        Debug.WriteLine(this.functBin);
                         break;
                     case "mult":
                         this.functBin = "011000";
                         this.shamtBin = "00000";
-                        Debug.WriteLine(this.functBin);
                         break;
                     case "sll":
                         this.functBin = "000000";
-                        Debug.WriteLine(this.functBin);
                         break;
                     case "srl":
                         this.functBin = "000010";
-                        Debug.WriteLine(this.functBin);
                         break;
                     default:
                         this.shamtBin = "00000";
