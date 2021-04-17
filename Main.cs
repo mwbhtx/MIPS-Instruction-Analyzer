@@ -159,7 +159,7 @@ namespace MIPS_Instruction_Analyzer
             }
             // Compute binary representation of register number
             regStruct.Register_Bin();
-            Console.WriteLine (regStruct.regBin);
+            Console.WriteLine(regStruct.regBin);
 
             // On Return, Check If Values Is 0xFF. A returned value of 0xFF represents no string match. 
             return regStruct;
@@ -231,6 +231,8 @@ namespace MIPS_Instruction_Analyzer
                 {
                     opObj.rType = true;
                     opObj.opCodeValid = true;
+                    opObj.op_Bin();
+                    Console.WriteLine(opObj.opBin);
                     return;
                 }
             }
@@ -244,6 +246,8 @@ namespace MIPS_Instruction_Analyzer
                 {
                     opObj.iType = true;
                     opObj.opCodeValid = true;
+                    opObj.op_Bin();
+                    Console.WriteLine(opObj.opBin);
                     return;
                 }
             }
@@ -684,14 +688,10 @@ namespace MIPS_Instruction_Analyzer
                 case 11:
                     regBin = "01011";
                     break; 
-                case 12:
-                    regBin = "01100";
-                    break; 
                 default:
                     regBin = "00000";
                     break;
             }
-           // return this.regBin;
         }
     }
 
@@ -706,6 +706,7 @@ namespace MIPS_Instruction_Analyzer
         public bool rType;
         public bool iType;
         public bool jType;
+        public string opBin;
 
         public Opcode_Data()
         {
@@ -715,6 +716,31 @@ namespace MIPS_Instruction_Analyzer
             rTypeArr = new string[] { "add", "sub", "div", "mult", "sll", "srl" };
             // initialze array with I-Type
             iTypeArr = new string[] { "sw", "lw", "addi" };
+        }
+
+        public void op_Bin()
+        {
+            if (this.rType)
+            {
+                this.opBin = "000000";
+            } else if (this.iType)
+                {
+                switch(this.opCodeString)
+                {
+                    case "sw":
+                        this.opBin = "101011";
+                        break;
+                    case "lw":
+                        this.opBin = "100011";
+                        break;
+                    case "addi":
+                        this.opBin = "001000";
+                        break;
+                    default:
+                        //Error?
+                        break;
+                }
+            }
         }
     }
 
