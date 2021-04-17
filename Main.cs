@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 
@@ -19,7 +20,9 @@ namespace MIPS_Instruction_Analyzer
 
         /* Initialize Register Array : Values Initialize To Zero */
         int[] registerArray = new int[(int)reg_Index.i_reg_NumberOfRegisters];
-
+        
+        // initialize base 2 variable for conversions
+        int binBase = 2;
 
         public Main()
         {
@@ -159,7 +162,7 @@ namespace MIPS_Instruction_Analyzer
             }
             // Compute binary representation of register number
             regStruct.Register_Bin();
-            Console.WriteLine(regStruct.regBin);
+            Debug.WriteLine(regStruct.regBin);
 
             // On Return, Check If Values Is 0xFF. A returned value of 0xFF represents no string match. 
             return regStruct;
@@ -231,8 +234,9 @@ namespace MIPS_Instruction_Analyzer
                 {
                     opObj.rType = true;
                     opObj.opCodeValid = true;
+                    // Compute binary representation of opcode
                     opObj.op_Bin();
-                    Console.WriteLine(opObj.opBin);
+                    Debug.WriteLine(opObj.opBin);
                     return;
                 }
             }
@@ -247,7 +251,7 @@ namespace MIPS_Instruction_Analyzer
                     opObj.iType = true;
                     opObj.opCodeValid = true;
                     opObj.op_Bin();
-                    Console.WriteLine(opObj.opBin);
+                    Debug.WriteLine(opObj.opBin);
                     return;
                 }
             }
@@ -379,6 +383,16 @@ namespace MIPS_Instruction_Analyzer
                         getRegisterValue(rt);
                         int shamtVal = int.Parse(args[3]);
 
+                        // set binary presentation
+                        //int binBase = 2;
+                        string tempShamt = op.shamtBin;
+                        tempShamt = Convert.ToString(shamtVal, binBase);
+                        
+                        // pad up shamt binary number
+                        string padBits = padUpBits(tempShamt.Length, 5);
+                        op.shamtBin = padBits + tempShamt;
+                        Debug.WriteLine(op.shamtBin);
+
                         // 3. Perform Any Math
                         int valueResult = rt.regValue << shamtVal;
 
@@ -402,6 +416,16 @@ namespace MIPS_Instruction_Analyzer
                         // 2. Get Required Values
                         getRegisterValue(rt);
                         int shamtVal = int.Parse(args[3]);
+
+                        // set binary presentation
+                        //int binBase = 2;
+                        string tempShamt = op.shamtBin;
+                        tempShamt = Convert.ToString(shamtVal, binBase);
+                        
+                        // pad up shamt binary number
+                        string padBits = padUpBits(tempShamt.Length, 5);
+                        op.shamtBin = padBits + tempShamt;
+                        Debug.WriteLine(op.shamtBin);
 
                         // 3. Perform Any Math
                         int valueResult = rt.regValue >> shamtVal;
@@ -464,6 +488,17 @@ namespace MIPS_Instruction_Analyzer
             }
         }
 
+        private string padUpBits (int bitLength, int bitMax) // expects length of string with binary presentation and total number of bits desired
+        {
+            string padString = "";
+            if (bitLength <= bitMax)
+                {
+                    int padNum = bitMax - bitLength;
+                    padString = string.Concat(Enumerable.Repeat("0", padNum));
+                }
+            return padString;
+        }
+
         private void convertHexStringToFloat(string hexString) // Expects String Argument In Form ("0x00") // no hex length requirement
         {
             hexString = hexString.Remove(0, 2);
@@ -472,7 +507,7 @@ namespace MIPS_Instruction_Analyzer
 
             byte[] floatVals = BitConverter.GetBytes(num);
             float f = BitConverter.ToSingle(floatVals, 0);
-            Console.WriteLine("float convert = {0}", f);
+            Debug.WriteLine("float convert = {0}", f);
         }
         private void convertHexStringToInt(string hexString)    // Expects String Argument In Form ("0x00") // no hex length requirement
         {
@@ -482,7 +517,7 @@ namespace MIPS_Instruction_Analyzer
 
             byte[] intVals = BitConverter.GetBytes(num);
             int i = BitConverter.ToInt32(intVals, 0); 
-            Console.WriteLine("int convert = {0}", i);
+            Debug.WriteLine("int convert = {0}", i);
         }
 
         /* 
@@ -707,6 +742,9 @@ namespace MIPS_Instruction_Analyzer
         public bool iType;
         public bool jType;
         public string opBin;
+        public string functBin;
+        public string addressBin;
+        public string shamtBin; // set in Process R Type function
 
         public Opcode_Data()
         {
@@ -723,6 +761,42 @@ namespace MIPS_Instruction_Analyzer
             if (this.rType)
             {
                 this.opBin = "000000";
+                // set funct binary presentation
+                switch(this.opCodeString)
+                {
+                    case "add":
+                        this.functBin = "100000";
+                        this.shamtBin = "00000";
+                        Debug.WriteLine(this.functBin);
+                        break;
+                    case "sub":
+                        this.functBin = "100010";
+                        this.shamtBin = "00000";
+                        Debug.WriteLine(this.functBin);
+                        break;
+                    case "div":
+                        this.functBin = "011010";
+                        this.shamtBin = "00000";
+                        Debug.WriteLine(this.functBin);
+                        break;
+                    case "mult":
+                        this.functBin = "011000";
+                        this.shamtBin = "00000";
+                        Debug.WriteLine(this.functBin);
+                        break;
+                    case "sll":
+                        this.functBin = "000000";
+                        Debug.WriteLine(this.functBin);
+                        break;
+                    case "srl":
+                        this.functBin = "000010";
+                        Debug.WriteLine(this.functBin);
+                        break;
+                    default:
+                        this.shamtBin = "00000";
+                        break;
+                }
+                
             } else if (this.iType)
                 {
                 switch(this.opCodeString)
