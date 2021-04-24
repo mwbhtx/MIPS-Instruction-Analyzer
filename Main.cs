@@ -289,7 +289,6 @@ namespace MIPS_Instruction_Analyzer
             switch (op.opCodeString)
             {
                 case "sw":
-
                     // Perform: [ sw $rt, imm($rs) ]        :: Mem4B(R[$rs] + SignExt16b(imm)) ← R[$rt]
 
 

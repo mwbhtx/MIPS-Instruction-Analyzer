@@ -38,3 +38,7 @@ C:\ECE5367\MIPS_Project\obj\Debug\MIPS Instruction Analyzer.csproj.GenerateResou
 C:\ECE5367\MIPS_Project\obj\Debug\MIPS Instruction Analyzer.csproj.CoreCompileInputs.cache
 C:\ECE5367\MIPS_Project\obj\Debug\MIPS Instruction Analyzer.exe
 C:\ECE5367\MIPS_Project\obj\Debug\MIPS Instruction Analyzer.pdb
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.exe.manifest
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\bin\Debug\MIPS Instruction Analyzer.application
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.exe.manifest
+C:\Users\Matthew\git\MIPS-Instruction-Analyzer\obj\Debug\MIPS Instruction Analyzer.application
