@@ -370,16 +370,52 @@ namespace MIPS_Instruction_Analyzer
                 op.shamtBin = "00000";
             }
 
+            // Move Binary Text Box
+            fullBingroup.Location = new Point(13, 186);
+            fullBingroup.Visible = true;
+
             // Set GUI String Based On Op-Type
             if (op.rType)
             {
+                // Disable iType Representation Group Box
+                iTypeBinGroup.Visible = false;
+                rTypeBinGroup.Visible = true;
+
+                // Move Correct Box Into Position
+                rTypeBinGroup.Location = new Point(12, 103);
+
+
                 // [ op + rs + rt + rd + shamt + func ]
-                outputString = op.opBin + rs.regBin + rt.regBin + rd.regBin + op.shamtBin + op.functBin; 
+                outputString = op.opBin + rs.regBin + rt.regBin + rd.regBin + op.shamtBin + op.functBin;
+
+                // Set Individual Representation Text Boxes
+                opTxtBoxRtype.Text = op.opBin;
+                rsTxtBoxRtype.Text = rs.regBin;
+                rtTxtBoxRtype.Text = rt.regBin;
+                rdTxtBoxRtype.Text = rd.regBin;
+                shamtTxtBoxRtype.Text = op.shamtBin;
+                funcTxtBoxRtype.Text = op.functBin;
             }
             else if (op.iType)
             {
+
+                // Disable rType Representation Group Box
+                iTypeBinGroup.Visible = true;
+                rTypeBinGroup.Visible = false;
+
+
+                // Move Correct Box Into Position
+                iTypeBinGroup.Location = new Point(12, 103);
+
+
                 // [ op + rs + rt + imm ]
-                outputString = op.opBin + rs.regBin + rt.regBin + imm.regBin; 
+                outputString = op.opBin + rs.regBin + rt.regBin + imm.regBin;
+
+                // Set Individual Representation Text Boxes
+                opTxtBoxItype.Text = op.opBin;
+                rsTxtBoxItype.Text = rs.regBin;
+                rtTxtBoxItype.Text = rt.regBin;
+                immTxtBoxItype.Text = imm.regBin;
             }
 
 
@@ -657,6 +693,17 @@ namespace MIPS_Instruction_Analyzer
         // set GUI representation of new data
         public void setGuiHexStringFromInt(int value, int regIndex) {
 
+            // Start By Setting All Register Text Foreground To Black, We Will Later Highlight Register That Changed
+            foreach (TextBox textBox in this.RegistersGroupBox.Controls.OfType<TextBox>())
+            {
+                textBox.ForeColor = Color.Black; 
+            }
+
+            // Set color to be used for highlighting purposes
+            var foreColor = Color.Red;
+            var backColor = SystemColors.Control;
+
+
             // Convert integer 182 as a hex in a string variable
             string hexString = String.Format("0x{0}", value.ToString("X8"));
 
@@ -664,40 +711,64 @@ namespace MIPS_Instruction_Analyzer
             switch(regIndex)
             {
                 case (int)reg_Index.i_regZero:
-                    regZero.Text = hexString; 
+                    regZero.Text = hexString;
+                    regZero.ForeColor = foreColor;
+                    regZero.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regAt:
                     regAt.Text = hexString;
+                    regAt.ForeColor = foreColor;
+                    regAt.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regV0:
                     regV0.Text = hexString;
+                    regV0.ForeColor = foreColor;
+                    regV0.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regV1:
                     regV1.Text = hexString;
+                    regV1.ForeColor = foreColor;
+                    regV1.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regA0:
                     regA0.Text = hexString;
+                    regA0.ForeColor = foreColor;
+                    regA0.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regA1:
                     regA1.Text = hexString;
+                    regA1.ForeColor = foreColor;
+                    regA1.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regA2:
                     regA2.Text = hexString;
+                    regA2.ForeColor = foreColor;
+                    regA2.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regA3:
                     regA3.Text = hexString;
+                    regA3.ForeColor = foreColor;
+                    regA3.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regT0:
                     regT0.Text = hexString;
+                    regT0.ForeColor = foreColor;
+                    regT0.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regT1:
                     regT1.Text = hexString;
+                    regT1.ForeColor = foreColor;
+                    regT1.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regT2:
                     regT2.Text = hexString;
+                    regT2.ForeColor = foreColor;
+                    regT2.BackColor = backColor;
                     break;
                 case (int)reg_Index.i_regT3:
                     regT3.Text = hexString;
+                    regT3.ForeColor = foreColor;
+                    regT3.BackColor = backColor;
                     break;
                 default:
                     // If No Match, Set Alert Box
@@ -731,6 +802,66 @@ namespace MIPS_Instruction_Analyzer
                 setGuiHexStringFromInt(tempObj.regValue, tempObj.regIndex);
 
             }
+        }
+
+        private void Label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegT2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegT3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegT1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegV1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegT0_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegA3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegA2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegA1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegA0_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegV0_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BinRepTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
