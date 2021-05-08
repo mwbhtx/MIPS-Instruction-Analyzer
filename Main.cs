@@ -288,17 +288,6 @@ namespace MIPS_Instruction_Analyzer
         {
             switch (op.opCodeString)
             {
-                case "sw":
-                    // Perform: [ sw $rt, imm($rs) ]        :: Mem4B(R[$rs] + SignExt16b(imm)) ← R[$rt]
-
-
-                    break;
-                case "lw":
-
-                    // Perform: [ lw $rt, imm($rs) ]        :: R[$rt] ← Mem4B(R[$rs] + SignExt16b(imm))
-
-                    break;
-
                 case "addi":
 
                     // Perform: [ addi $rt, $rs, imm ]      :: R[$rt] ← R[$rs] + SignExt16b(imm)
@@ -323,6 +312,8 @@ namespace MIPS_Instruction_Analyzer
 
                     break;
             }
+
+            setITypeControlUnit();
         }
 
         // Return Shift Amount As Integer, While Also Setting Shift Amount Binary String
@@ -588,7 +579,37 @@ namespace MIPS_Instruction_Analyzer
                         break;
                     }
             }
+
+            // Set Control Unit Box
+            setRTypeControlUnit();
         }
+
+        private void setRTypeControlUnit()
+        {
+
+            regDstBox.Text = "1";
+            regWriteBox.Text = "1";
+            aluSrcBox.Text = "0";
+            aluOpBox.Text = "10";
+            memWriteBox.Text = "0";
+            memReadBox.Text = "0";
+            memToRegBox.Text = "0";
+
+        }
+
+        private void setITypeControlUnit()
+        {
+
+            regDstBox.Text = "0";
+            regWriteBox.Text = "1";
+            aluSrcBox.Text = "1";
+            aluOpBox.Text = "00";
+            memWriteBox.Text = "0";
+            memReadBox.Text = "0";
+            memToRegBox.Text = "0";
+
+        }
+
 
         private string padUpBits (int bitLength, int bitMax) // expects length of string with binary presentation and total number of bits desired
         {

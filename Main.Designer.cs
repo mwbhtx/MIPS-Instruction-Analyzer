@@ -115,12 +115,28 @@
             this.opTxtBoxItype = new System.Windows.Forms.TextBox();
             this.rtTxtBoxItype = new System.Windows.Forms.TextBox();
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.memToRegBox = new System.Windows.Forms.TextBox();
+            this.memReadBox = new System.Windows.Forms.TextBox();
+            this.memWriteBox = new System.Windows.Forms.TextBox();
+            this.aluOpBox = new System.Windows.Forms.TextBox();
+            this.aluSrcBox = new System.Windows.Forms.TextBox();
+            this.regDstBox = new System.Windows.Forms.TextBox();
+            this.regWriteBox = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
             this.fullBingroup.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.rTypeBinGroup.SuspendLayout();
             this.iTypeBinGroup.SuspendLayout();
             this.RegistersGroupBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -839,7 +855,6 @@
             this.opTxtBoxRtype.Name = "opTxtBoxRtype";
             this.opTxtBoxRtype.Size = new System.Drawing.Size(50, 20);
             this.opTxtBoxRtype.TabIndex = 14;
-            this.opTxtBoxRtype.Text = "000000";
             this.opTxtBoxRtype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label50
@@ -857,7 +872,6 @@
             this.rsTxtBoxRtype.Name = "rsTxtBoxRtype";
             this.rsTxtBoxRtype.Size = new System.Drawing.Size(50, 20);
             this.rsTxtBoxRtype.TabIndex = 12;
-            this.rsTxtBoxRtype.Text = "00000";
             this.rsTxtBoxRtype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label49
@@ -875,7 +889,6 @@
             this.rtTxtBoxRtype.Name = "rtTxtBoxRtype";
             this.rtTxtBoxRtype.Size = new System.Drawing.Size(50, 20);
             this.rtTxtBoxRtype.TabIndex = 10;
-            this.rtTxtBoxRtype.Text = "00000";
             this.rtTxtBoxRtype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label48
@@ -893,7 +906,6 @@
             this.rdTxtBoxRtype.Name = "rdTxtBoxRtype";
             this.rdTxtBoxRtype.Size = new System.Drawing.Size(50, 20);
             this.rdTxtBoxRtype.TabIndex = 8;
-            this.rdTxtBoxRtype.Text = "00000";
             this.rdTxtBoxRtype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label20
@@ -911,7 +923,6 @@
             this.shamtTxtBoxRtype.Name = "shamtTxtBoxRtype";
             this.shamtTxtBoxRtype.Size = new System.Drawing.Size(50, 20);
             this.shamtTxtBoxRtype.TabIndex = 6;
-            this.shamtTxtBoxRtype.Text = "00000";
             this.shamtTxtBoxRtype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label19
@@ -929,7 +940,6 @@
             this.funcTxtBoxRtype.Name = "funcTxtBoxRtype";
             this.funcTxtBoxRtype.Size = new System.Drawing.Size(50, 20);
             this.funcTxtBoxRtype.TabIndex = 4;
-            this.funcTxtBoxRtype.Text = "000000";
             this.funcTxtBoxRtype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // iTypeBinGroup
@@ -965,7 +975,6 @@
             this.immTxtBoxItype.Name = "immTxtBoxItype";
             this.immTxtBoxItype.Size = new System.Drawing.Size(112, 20);
             this.immTxtBoxItype.TabIndex = 20;
-            this.immTxtBoxItype.Text = "0000000000000000";
             this.immTxtBoxItype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label53
@@ -992,7 +1001,6 @@
             this.rsTxtBoxItype.Name = "rsTxtBoxItype";
             this.rsTxtBoxItype.Size = new System.Drawing.Size(50, 20);
             this.rsTxtBoxItype.TabIndex = 18;
-            this.rsTxtBoxItype.Text = "00000";
             this.rsTxtBoxItype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label54
@@ -1010,7 +1018,6 @@
             this.opTxtBoxItype.Name = "opTxtBoxItype";
             this.opTxtBoxItype.Size = new System.Drawing.Size(50, 20);
             this.opTxtBoxItype.TabIndex = 16;
-            this.opTxtBoxItype.Text = "00000";
             this.opTxtBoxItype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // rtTxtBoxItype
@@ -1019,7 +1026,6 @@
             this.rtTxtBoxItype.Name = "rtTxtBoxItype";
             this.rtTxtBoxItype.Size = new System.Drawing.Size(50, 20);
             this.rtTxtBoxItype.TabIndex = 16;
-            this.rtTxtBoxItype.Text = "00000";
             this.rtTxtBoxItype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RegistersGroupBox
@@ -1068,11 +1074,154 @@
             this.RegistersGroupBox.TabStop = false;
             this.RegistersGroupBox.Text = "Registers";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.memToRegBox);
+            this.groupBox1.Controls.Add(this.memReadBox);
+            this.groupBox1.Controls.Add(this.memWriteBox);
+            this.groupBox1.Controls.Add(this.aluOpBox);
+            this.groupBox1.Controls.Add(this.aluSrcBox);
+            this.groupBox1.Controls.Add(this.regDstBox);
+            this.groupBox1.Controls.Add(this.regWriteBox);
+            this.groupBox1.Controls.Add(this.label63);
+            this.groupBox1.Controls.Add(this.label62);
+            this.groupBox1.Controls.Add(this.label61);
+            this.groupBox1.Controls.Add(this.label59);
+            this.groupBox1.Controls.Add(this.label58);
+            this.groupBox1.Controls.Add(this.label57);
+            this.groupBox1.Controls.Add(this.label56);
+            this.groupBox1.Location = new System.Drawing.Point(13, 371);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(376, 177);
+            this.groupBox1.TabIndex = 60;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Control Unit Signal Values";
+            // 
+            // memToRegBox
+            // 
+            this.memToRegBox.Location = new System.Drawing.Point(275, 104);
+            this.memToRegBox.Name = "memToRegBox";
+            this.memToRegBox.Size = new System.Drawing.Size(50, 20);
+            this.memToRegBox.TabIndex = 29;
+            this.memToRegBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // memReadBox
+            // 
+            this.memReadBox.Location = new System.Drawing.Point(275, 73);
+            this.memReadBox.Name = "memReadBox";
+            this.memReadBox.Size = new System.Drawing.Size(50, 20);
+            this.memReadBox.TabIndex = 28;
+            this.memReadBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // memWriteBox
+            // 
+            this.memWriteBox.Location = new System.Drawing.Point(275, 42);
+            this.memWriteBox.Name = "memWriteBox";
+            this.memWriteBox.Size = new System.Drawing.Size(50, 20);
+            this.memWriteBox.TabIndex = 27;
+            this.memWriteBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // aluOpBox
+            // 
+            this.aluOpBox.Location = new System.Drawing.Point(96, 132);
+            this.aluOpBox.Name = "aluOpBox";
+            this.aluOpBox.Size = new System.Drawing.Size(50, 20);
+            this.aluOpBox.TabIndex = 25;
+            this.aluOpBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // aluSrcBox
+            // 
+            this.aluSrcBox.Location = new System.Drawing.Point(96, 102);
+            this.aluSrcBox.Name = "aluSrcBox";
+            this.aluSrcBox.Size = new System.Drawing.Size(50, 20);
+            this.aluSrcBox.TabIndex = 24;
+            this.aluSrcBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // regDstBox
+            // 
+            this.regDstBox.Location = new System.Drawing.Point(96, 72);
+            this.regDstBox.Name = "regDstBox";
+            this.regDstBox.Size = new System.Drawing.Size(50, 20);
+            this.regDstBox.TabIndex = 23;
+            this.regDstBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // regWriteBox
+            // 
+            this.regWriteBox.Location = new System.Drawing.Point(96, 42);
+            this.regWriteBox.Name = "regWriteBox";
+            this.regWriteBox.Size = new System.Drawing.Size(50, 20);
+            this.regWriteBox.TabIndex = 22;
+            this.regWriteBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(206, 107);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(63, 13);
+            this.label63.TabIndex = 7;
+            this.label63.Text = "MemToReg";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(213, 76);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(56, 13);
+            this.label62.TabIndex = 6;
+            this.label62.Text = "MemRead";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(214, 45);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(55, 13);
+            this.label61.TabIndex = 5;
+            this.label61.Text = "MemWrite";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(48, 135);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(42, 13);
+            this.label59.TabIndex = 3;
+            this.label59.Text = "ALUOp";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(46, 105);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(44, 13);
+            this.label58.TabIndex = 2;
+            this.label58.Text = "ALUSrc";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(47, 75);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(43, 13);
+            this.label57.TabIndex = 1;
+            this.label57.Text = "RegDst";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(38, 45);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(52, 13);
+            this.label56.TabIndex = 0;
+            this.label56.Text = "RegWrite";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(655, 560);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.RegistersGroupBox);
             this.Controls.Add(this.iTypeBinGroup);
             this.Controls.Add(this.rTypeBinGroup);
@@ -1094,6 +1243,8 @@
             this.iTypeBinGroup.PerformLayout();
             this.RegistersGroupBox.ResumeLayout(false);
             this.RegistersGroupBox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1187,6 +1338,21 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.TextBox opTxtBoxItype;
         private System.Windows.Forms.TextBox rtTxtBoxItype;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox memToRegBox;
+        private System.Windows.Forms.TextBox memReadBox;
+        private System.Windows.Forms.TextBox memWriteBox;
+        private System.Windows.Forms.TextBox aluOpBox;
+        private System.Windows.Forms.TextBox aluSrcBox;
+        private System.Windows.Forms.TextBox regDstBox;
+        private System.Windows.Forms.TextBox regWriteBox;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label56;
     }
 }
 
